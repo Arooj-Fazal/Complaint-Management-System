@@ -1,0 +1,1259 @@
+/* Root Variables for Consistency */
+:root {
+    --primary-color: #004d4d; 
+    --secondary-color: #f4f7f6;
+    --text-color: #333;
+    --white: #ffffff;
+    --border-color: #d1d8e0;
+    --danger: #e74c3c;
+    --success: #27ae60;
+    --warning: #f39c12;}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--secondary-color);
+}
+
+/* Header Styling */
+header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Layout Container */
+.dashboard-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Sidebar Styling (Matches your Image) */
+.sidebar {
+    width: 250px; background-color: var(--white); border-right: 1px solid var(--border-color);
+  }
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar ul li a {
+    
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.sidebar ul li a i { margin-right: 12px; width: 20px; text-align: center; }
+.sidebar ul li a:hover {
+    background-color: #f0f0f0;
+    color: var(--primary-color);
+}
+
+.sidebar ul li a.active {
+   border-left: 5px solid var(--primary-color); background-color: #f9f9f9; color: var(--primary-color);
+}
+
+/* Notification Badge */
+.badge {
+    background-color: red;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.section-card {
+  background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    margin: 20px;
+    border: 1px solid #e0e0e0; /* Table ka border wapis agaya */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+.no-border-box {
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.section-card h2 {
+    margin-bottom: 20px;
+    color: #004d4d;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+/* Table Styling */
+table {
+    width: 100%; border-collapse: collapse; margin-top: 15px; background: white;}
+
+th {
+    background-color: #f1f5f9; text-align: left; padding: 15px;
+     border-bottom: 2px solid #cbd5e1; color: var(--primary-color); font-weight: 600;
+}
+
+td {
+    /* padding: 12px;
+    border-bottom: 1px solid #eee; */
+
+padding: 15px; border-bottom: 1px solid #e2e8f0; color: #444;}
+
+/* Buttons Styling */
+.btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.2s;
+    
+}
+
+.btn-approve { background-color: var(--success); color: white; }
+.btn-block { background-color: var(--warning); color: white; }
+.btn-delete { background-color: var(--danger); color: white; }
+
+.btn:hover { opacity: 0.8; }
+
+/* Performance Progress Bar */
+.progress-container {
+    background: #eee;
+    border-radius: 10px;
+    height: 12px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.progress-bar {
+    background: var(--primary-color);
+    height: 100%;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+}
+
+/* Footer Styling */
+footer {
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.btn-logout{
+    color: white;
+    background-color: #115562;
+    border: none;
+    margin-right: 35px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* Common button style */
+button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Approve button */
+.btn-approve {
+  background-color: #4CAF50; /* green */
+  color: white;
+  margin-right: 5px;
+}
+
+.btn-approve:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* Reject button */
+.btn-reject {
+  background-color: #f44336; /* red */
+  color: white;
+}
+
+.btn-reject:hover {
+  background-color: #da190b;
+  transform: scale(1.05);
+}
+
+/* Optional: Table td padding */
+td {
+  padding: 8px 12px;
+}
+
+#editSection h3{
+    color: #115562;
+    margin-bottom: 20px;
+}
+
+
+
+/* Container styling for form */
+#editSection {
+    background-color: #f0f8ff; /* light background for contrast */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Style for labels */
+#editSection label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #115562;
+    font-size: 16px;
+}
+
+/* Style for input fields */
+#editSection input[type="email"],
+#editSection input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #115562;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+/* Input focus effect */
+#editSection input[type="email"]:focus,
+#editSection input[type="password"]:focus {
+    border-color: #0d3b46;
+    box-shadow: 0 0 5px rgba(17,85,98,0.5);
+    outline: none;
+}
+
+/* Optional: styling for placeholders */
+#editSection input::placeholder {
+    color: #11556299; /* semi-transparent */
+    font-style: italic;
+}
+
+/* Buttons inside editSection */
+#editSection button {
+    background-color: #115562;
+    color: #fff;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#editSection button:hover {
+    background-color: #0d3b46;
+}
+
+
+
+/* Container and Typography */
+.section-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.section-card h3 {
+    color: #115562;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* Search Bar Styling */
+#userSearch {
+   
+   width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+#userSearch:focus {
+    outline: none;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+/* Table Styling */
+#userTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#userTable thead tr {
+    background-color: #f7fafc;
+}
+
+#userTable th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #4a5568;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #edf2f7;
+    border:1px  solid #115562;
+
+}
+
+#userTable td {
+    padding: 16px 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid #edf2f7;
+    color: #2d3748;
+    font-size: 0.95rem;
+}
+
+#userTable tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Action Buttons Styling */
+/* Give your buttons a class like class="btn edit" in your JS */
+.btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: all 0.2s ease;
+}
+
+.btn-edit { background: #ebf8ff; color: #2b6cb0; }
+.btn-edit:hover { background: #bee3f8; }
+
+.btn-delete { background: #fff5f5; color: #c53030; }
+.btn-delete:hover { background: #fed7d7; }
+
+.btn-reset { background: #f7fafc; color: #4a5568; border: 1px solid #e2e8f0; }
+.btn-reset:hover { background: #edf2f7; }
+
+/* Status Badges */
+/* Apply these classes based on the user's status */
+.status {
+    padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: bold;
+}
+
+.status-approved { background: #c6f6d5; color: #22543d; }
+.status-pending { background: #feebc8; color: #744210; }
+.status-rejected { background: #fed7d7; color: #822727; }
+
+
+/* FULL SCREEN MODAL */
+.modal {
+    /* position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.4); */
+
+    /* display: none; */
+    /* align-items: center;
+    justify-content: center;
+    margin-top: 5px; */
+    position: fixed;
+    z-index: 9999; /* Sabse upar */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Thora dark overlay */
+    display: none; /* JS isse 'flex' kar degi */
+    align-items: center;
+    justify-content: center;
+}
+
+/* MODAL CONTENT */
+.modal-content {
+    /* background: #fff;
+    width: 350px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: popup 0.3s ease;
+    margin: auto; */
+    background: #fff;
+    width: 90%;
+    max-width: 400px; /* Mobile par width adjust ho jayegi */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    animation: popup 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin: auto;
+    position: relative;
+
+}
+
+/* POPUP ANIMATION */
+@keyframes popup {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+.modal-content h3 {
+  /* margin-bottom: 15px;
+  color: #115562; */
+  color: #115562;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.modal-content label {
+  /* display: block;
+  margin-top: 10px;
+  font-weight: 600; */
+  display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #444;
+}
+
+.modal-content input,
+.modal-content select {
+  /* width: 100%;
+  padding: 8px;
+  margin-top: 5px; */
+  width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.modal-actions {
+  /* margin-top: 15px;
+  display: flex;
+  justify-content: space-between; */
+  margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+#saveUserBtn {
+  background: #115562;
+  color: #fff;
+  padding: 8px 15px;
+  border: none;
+}
+
+#cancelUserBtn {
+  background: #ccc;
+  padding: 8px 15px;
+  border: none;
+}
+
+
+
+/* ================= RESPONSIVE MEDIA QUERIES ================= */
+
+/* Tablets & Small Laptops */
+@media (max-width: 992px) {
+
+  .sidebar {
+    width: 200px;
+  }
+
+  .main-content {
+    /* padding: 15px; */
+    flex: 1; padding: 10px; overflow-y: auto;
+  }
+
+  table th,
+  table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+
+/* Tablets & Large Mobiles */
+@media (max-width: 768px) {
+
+  .dashboard-container {
+    flex-direction: column;
+  }
+  .dashboard-wrapper-special {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .btn-logout {
+    margin-right: 0;
+  }
+
+  /* tables mobile pe break na hon */
+  table {
+    min-width: 600px;
+  }
+
+  .main-content {
+    overflow-x: auto;
+  }
+}
+
+/* Small Mobiles */
+@media (max-width: 480px) {
+
+  .section-card {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  button,
+  .btn {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  #editSection {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+}
+.assign-select {
+    padding: 6px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100%;
+    background-color: #f9f9f9;
+}
+
+.badge-high { color: #d9534f; font-weight: bold; }
+.badge-medium { color: #f0ad4e; font-weight: bold; }
+.badge-low { color: #5cb85c; font-weight: bold; }
+
+/* Dropdown ka main container */
+.assign-select {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif; /* Agar aap use kar rahi hain */
+    color: #333;
+    background-color: #fcfcfc;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none; /* Default arrow hatane ke liye */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20width%3D"292.4"%20height%3D"292.4"><path%20fill%3D"%23007CB2"%20d%3D"M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z"%2F><%2Fsvg>'); /* Custom Arrow */
+    background-repeat: no-repeat;
+    background-position: right 12px top 50%;
+    background-size: 12px auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Jab dropdown par click ho (Focus) */
+.assign-select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0,123,255,0.2);
+    background-color: #fff;
+}
+
+/* Table cell ke andar spacing */
+td select {
+    margin: 5px 0;
+}
+
+/* Dropdown ke andar ke options */
+.assign-select option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+
+/* Container styling to match table layout */
+.assign-select {
+    width: 100%;
+    min-width: 180px;
+    height: 40px;
+    padding: 0 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #444;
+    background-color: #ffffff;
+    /* Custom Modern Border */
+    border: 2px solid #e2e8f0; 
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    
+    /* Custom Arrow (Modern Minimalist) */
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+/* Hover effect - Thoda sa glow aur border color change */
+.assign-select:hover {
+    border-color: #3b82f6; /* Blue border on hover */
+    background-color: #f8fafc;
+}
+
+/* Focus state - Jab click karein */
+.assign-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Optgroup styling (Categories ke liye) */
+.assign-select optgroup {
+    font-weight: 700;
+    color: #1e293b;
+    background: #f1f5f9;
+    padding: 10px;
+}
+
+/* Option styling */
+.assign-select option {
+    padding: 12px;
+    background: white;
+    color: #334155;
+    font-weight: 400;
+}
+
+.btn-approve {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-approve:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.btn-approve:active {
+    transform: translateY(0);
+}
+
+
+/* Container for the select */
+.custom-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.modern-select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2d3748;
+    background: #ffffff;
+    border: 2px solid #edf2f7;
+    border-radius: 12px;
+    cursor: pointer;
+    appearance: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234A5568'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+}
+
+/* Hover and Focus Effects */
+.modern-select:hover {
+    border-color: #cbd5e0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.modern-select:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+    outline: none;
+}
+
+/* Stylish Option Tags (Note: Limited styling but clean) */
+.modern-select option {
+    padding: 15px;
+    background: #fff;
+    color: #4a5568;
+    font-size: 14px;
+}
+
+/* Priority Tags Styling */
+.prio-tag {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.prio-tag.high { background: #fff5f5; color: #c53030; }
+.prio-tag.medium { background: #fffaf0; color: #9c4221; }
+.prio-tag.low { background: #f0fff4; color: #276749; }
+
+/* Confirm Button Styling */
+.btn-confirm-modern {
+    background: #3182ce;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+.btn-confirm { background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+
+.btn-confirm-modern:hover {
+    background: #2b6cb0;
+    box-shadow: 0 4px 15px rgba(49, 130, 206, 0.4);
+}
+
+
+/* Sidebar Link Styling */
+.sidebar ul li a {
+    display: flex;         /* Ek line mein lane ke liye */
+    align-items: center;   /* Ooper neeche se barabar karne ke liye */
+    text-decoration: none;
+    padding: 12px 15px;
+    color: #333;           /* Aapka pasandida rang */
+    transition: 0.3s;
+}
+
+/* Icons ki styling */
+.sidebar ul li a i {
+    margin-right: 12px;    /* Text se door rakhne ke liye */
+    width: 20px;           /* Sab icons ek line mein align honge */
+    text-align: center;
+    font-size: 18px;
+}
+
+/* Badge ko hamesha aakhir (Right) mein rakhne ke liye */
+.sidebar ul li a .badge {
+    margin-left: auto;     /* Ye magic line hai jo badge ko right side push karti hai */
+    background-color: #e74c3c;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+/* Hover Effect */
+.sidebar ul li a:hover {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+/* Active Link */
+.sidebar ul li a.active {
+    /* background-color: #004d40; */
+    color: #004d40;
+}
+.section-content {
+    padding: 20px;
+    /* Margin left ensure karta hai ke sidebar ke upar na charhay */
+    margin-left: 10px; 
+}
+
+.perf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* Stats Cards Layout */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #e0f2f1;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* Chart Box - Isko width controls mein rakha hai */
+.chart-box {
+   background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    margin-top: 20px;
+    width: 100% !important;
+    /* Is se chart ki height control hogi aur wo lamba (stretch) nahi hoga */
+    height: 400px !important; 
+    position: relative;
+}
+
+#performanceChart {
+    /* Is se canvas apne parent div ke andar rahega */
+    max-height: 100% !important;
+    width: 100% !important;
+}
+/* Table Styling */
+/* .ranking-table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    overflow-x: auto; 
+    border: 1px solid #a3a3a3;
+    margin-top: 30px;
+} */
+
+/* Table Styling */
+.ranking-table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    overflow-x: auto; 
+    border: 1px solid #a3a3a3;
+    margin-top: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Thora sa shadow depth ke liye */
+}
+
+/* Zebra Stripping Logic */
+.ranking-table-container table tbody tr:nth-child(even) {
+    background-color:  #cccccc; /* Halka sa green-grey tone jo aapke theme se match kare */
+}
+
+/* Hover effect on rows for better focus */
+/* .ranking-table-container table tbody tr:hover {
+    background-color: #e8f0f0; 
+    transition: background-color 0.2s ease; */
+
+
+/* Table Header ko thora stand-out karne ke liye */
+.ranking-table-container table th {
+    background-color: #004d4d; /* Aapka primary green */
+    color: white;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #003333;
+}
+
+/* Cells ki padding */
+.ranking-table-container table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.export-btn {
+    background: #00695c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+.section-card, .section-content {
+    display: none;
+}
+
+/* Modern Notification Badge Design */
+.notification-badge {
+    background: linear-gradient(45deg, #ff4757, #ff6b81); /* Gradient Color */
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px; /* Pill shape */
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; /* Position floating */
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4); /* Soft Red Glow */
+    border: 1.5px solid white; /* White border for contrast */
+    transition: all 0.3s ease;
+}
+
+/* Jab sidebar item pe hover ho to badge thora zoom ho */
+li:hover .notification-badge {
+    transform: translateY(-50%) scale(1.2);
+}
+
+.btn-reset {
+    background: #f39c12; /* Orange color for reset */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-reset:hover {
+    background: #e67e22;
+    transform: translateY(-2px);
+}
+
+/* Puray container se padding aur background khatam karne ke liye */
+.main-content {
+    padding: 0 !important; /* Side borders aur space khatam */
+    margin: 0 !important;
+    background-color: #f4f7f6; /* Light background */
+}
+
+/* Dashboard Section ko full width karne ke liye */
+#dashboardOverview {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    border: none !important; /* Border khtm */
+    box-shadow: none !important;
+}
+
+.welcome-hero-container {
+   width: 100%;
+    height: 300px;
+    overflow: hidden;
+    clip-path: ellipse(100% 100% at 50% 0%);
+    margin-bottom: 25px;
+}
+
+.hero-image {
+    width: 100%; height: 100%; object-fit: cover;
+   }
+/* Text aur Cards ke liye thodi side padding (taake wo bilkul kone se na chipkein) */
+.stats-grid, .chart-box, .admin-quick-card {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.admin-quick-card {
+     /* padding: 0 20px; margin-bottom: 30px; */
+     padding-left: 50px; /* Is value ko aap kam ya zyada kar sakti hain alignment ke liye */
+    padding-right: 40px;
+    margin-top: 20px;
+     }
+
+.admin-quick-card h1 { 
+  font-size: 28px; color: #222; margin: 0;
+}
+.subtitle {color: #666; font-size: 14px; margin-top: 4px; }
+.panel-title {color: #00563b; font-size: 18px;
+     margin-top: 15px; display: flex; align-items: center; gap: 8px; font-weight: bold; }
+.hero-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 5%; /* Image ke kinare se align hoga */
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Text ko readable banayega */
+}
+
+/* Stats Cards ko wide row mein dikhane ke liye */
+.stats-grid {
+   display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 0 20px;}
+/* Container for the text area */
+.welcome-hero-container + div, 
+#dashboardOverview h2, 
+#dashboardOverview p {
+    padding-left: 40px; /* Text ko thoda side se hatane ke liye */
+}
+
+/* Welcome Back, Admin! Styling */
+#dashboardOverview h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333; /* Dark gray for a clean look */
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* University of Agriculture Faisalabad Subtitle */
+#dashboardOverview p {
+    font-size: 14px;
+    color: #666; /* Lighter gray for subtitle */
+    letter-spacing: 0.5px;
+    margin-bottom: 25px;
+}
+
+/* Main Admin Panel Header */
+#dashboardOverview h3 {
+    font-size: 22px;
+    color: #00563b; /* UAF green shade matching your theme */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Icon with Main Admin Panel */
+#dashboardOverview h3::before {
+    content: '\f3ed'; /* Shield icon from FontAwesome */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+/* Stats Grid Layout */
+.stats-grid {
+   display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 0 40px;
+}
+
+/* Individual Card Styling */
+.stat-card {
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.card-icon-wrapper {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+.stat-info p {
+    font-size: 14px;
+    margin: 0;
+    font-weight: 600;
+    opacity: 0.8;
+}
+.stat-info h3 {
+    font-size: 32px;
+    margin: 5px 0 0 0;
+    font-weight: 800;
+}
+.stat-card i {
+    font-size: 35px;
+    opacity: 0.3; /* Icon ko thoda light rakha hai taake text focus mein rahe */
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* Text Details inside Card */
+.stat-card div {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-card p {
+    color: #888;
+    font-size: 14px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.stat-card h3 {
+    color: #333;
+    font-size: 28px;
+    margin: 5px 0 0 0;
+    font-weight: 700;
+}
+
+/* Icon Styling - Isko hum ek halkay rang ke circle mein dalenge */
+.stat-card i {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 12px;
+    font-size: 22px;
+}
+
+.card-blue { background-color: #5c7fdb; }
+.card-orange { background-color: #f1a94e; }
+.card-red { background-color: #e55e55; }
+.card-green { background-color: #58c687; }
+
+
+
+.admin-quick-card {
+    padding: 0 40px;
+    margin-top: 40px;
+}
+
+.admin-quick-card h3 {
+   font-size: 22px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.admin-quick-card h3::before {
+    content: '\f0e4'; /* Dashboard Gauge Icon */
+    font-family: "Font Awesome 5 Free";
+    color: #00563b; /* UAF Green */
+    font-size: 18px;
+}
+
+.online-dot {
+    height: 8px;
+    width: 8px;
+    background-color: #27ae60;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+    animation: blink 1.5s infinite;
+}
+#approvals{
+    border-left:1px solid  #004d40;
+    border-right
+    :1px solid  #004d40;
+}
+
+#complaints{
+    border-left:1px solid  #004d40;
+    border-right
+    :1px solid  #004d40;
+}
+#userManagement{
+     border-left:1px solid  #004d40;
+    border-right
+    :1px solid  #004d40;
+
+}
+#feedback{
+    border-left:1px solid  #004d40;
+    border-right
+    :1px solid  #004d40;
+
+}

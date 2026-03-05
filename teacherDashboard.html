@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="teacherDashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Firebase SDK -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js"></script>
+
+    <!-- JS -->
+    <script type="module" src="teacherDashboard.js" defer></script>
+</head>
+
+<body>
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+        <div class="navbar-left">
+            <i class="fas fa-bars" id="menu-toggle"></i>
+            <h2>Teacher Dashboard</h2>
+        </div>
+        <div class="navbar-right">
+            <div class="user-info">
+            <span id="welcomeName">Welcome, </span>
+            <div class="user-icon-circle">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+            <!-- <input type="text" id="searchComplaints" placeholder="Search complaints..."> -->
+            
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+        <i class="fas fa-times" id="menu-close"></i>
+    </div>
+          <ul>
+    <li><a href="#" onclick="showSection('dashboardOverview'); return false;"><i class="fas fa-home"></i> Dashboard Overview</a></li>
+    <li><a href="#" onclick="showSection('notificationsSection'); return false;"><i class="fas fa-bell"></i> Notifications <span class="notif-count" id="notifBadge">0</span></a></li>
+    <li><a href="#" onclick="showSection('dashboardSection'); return false;"><i class="fas fa-tasks"></i> Manage Complaints</a></li>
+    <li><a href="#" onclick="showSection('profileSection'); return false;"><i class="fas fa-user-circle"></i> Profile</a></li>
+    <li><a href="#" id="logoutBtn" onclick="return false;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+</ul>
+        </aside>
+
+        <!-- Main Sections Wrapper -->
+        <div class="main-sections">
+            <!-- Dashboard / Manage Complaints -->
+            <main class="main-content" id="dashboardSection">
+                <h2 id="heading">Manage Complaints</h2>
+
+                <!-- Complaints Table -->
+                <table id="complaintsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Complaints from Firebase will populate here dynamically -->
+                    </tbody>
+                </table>
+
+                <!-- Complaint Details Modal -->
+                <!-- <div id="complaintModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn">&times;</span>
+                        <h2 id="modalTitle">Complaint Title</h2>
+                        <p id="modalDescription">Complaint description will appear here.</p>
+                    </div>
+                </div> -->
+                <div id="updateModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; z-index:1000;">
+    <div style="background:white; padding:30px; border-radius:12px; width:400px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+        <h3>Update Complaint</h3>
+        <input type="hidden" id="tempStudentId">
+        <input type="hidden" id="tempComplaintId">
+        
+        <label style="display:block; margin-top:15px;">New Status:</label>
+        <select id="statusSelect" style="width:100%; padding:10px; margin-top:5px; border-radius:5px;">
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Pending Info">Pending Info</option>
+        </select>
+
+        <label style="display:block; margin-top:15px;">Your Remarks:</label>
+        <textarea id="teacherRemarks" placeholder="What have you done to fix this?" style="width:100%; padding:10px; margin-top:5px; height:100px; border-radius:5px; border:1px solid #ddd;"></textarea>
+
+        <div style="margin-top:20px; display:flex; gap:10px;">
+            <button onclick="saveTeacherUpdate()" style="background:#115562; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; flex:1;">Save & Notify</button>
+            <button onclick="closeModal()" style="background:#ccc; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Cancel</button>
+        </div>
+    </div>
+</div>
+            </main>
+
+            <!-- Dashboard Overview -->
+           <div id="dashboardOverview" class="content-section">
+    
+    <div class="uni-banner">
+        <!-- <img src="your-uni-image.jpg" alt="University Campus"> -->
+        <div class="banner-overlay"></div>
+    </div>
+
+    <div class="welcome-bar">
+        <div class="welcome-text">
+            <h2>Welcome, <span id="displayUserName">Teacher Name</span></h2>
+            <p>Here's what's happening with your complaints today.</p>
+        </div>
+        <div class="user-profile-icon">
+            <i class="fas fa-user-circle"></i>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="stat-info"><h3>Total</h3><p id="totalCount">0</p></div>
+        </div>
+        <div class="stat-card pending">
+            <div class="stat-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <div class="stat-info"><h3>Pending</h3><p id="pendingCount">0</p></div>
+        </div>
+        <div class="stat-card escalated">
+            <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="stat-info"><h3>Escalated</h3><p id="escalatedCount">0</p></div>
+        </div>
+        <div class="stat-card resolved">
+            <div class="stat-icon"><i class="fas fa-check-double"></i></div>
+            <div class="stat-info"><h3>Resolved</h3><p id="resolvedCount">0</p></div>
+        </div>
+    </div>
+
+    <div class="dashboard-footer-row">
+        <div class="graph-container full-width">
+            <h3>Complaint Overview</h3>
+            <canvas id="complaintChart"></canvas> 
+        </div>
+        </div>
+
+        <div class="urgent-container">
+    <div class="urgent-header-row">
+        <h3><i class="fas fa-bolt"></i> Urgent Complaints</h3>
+        <span class="view-all-link" onclick="showSection('dashboardSection')">View All >>></span>
+    </div>
+
+    <div id="urgentList">
+        <p class="no-data">No urgent complaints.</p>
+    </div>
+</div>
+    </div>
+</div>
+
+            <!-- Notifications Section -->
+            <div id="notificationsSection" style="display:none;">
+                <h2>Notifications</h2>
+                <p id="noNotifMsg"></p>
+                <ul id="notifList"></ul>
+
+                <!-- Add your notifications content here -->
+            </div>
+
+            <!-- Profile Section -->
+            <div id="profileSection" style="display:none;">
+                <div class="profile-container">
+                    <h2>Profile</h2>
+
+                    <table class="profile-table">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="profileBody">
+                            <!-- Firebase user data will come here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Teacher Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

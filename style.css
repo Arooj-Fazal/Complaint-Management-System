@@ -1,0 +1,188 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  /* Image No. 3 Overlay */
+  background: linear-gradient(rgba(17, 85, 98, 0.8), rgba(17, 85, 98, 0.8)), 
+              url('Uni\ view.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.split-container {
+  display: flex;
+  flex-direction: row;
+  width: 90%;           
+  max-width: 1200px;
+  gap: 20px;            
+  align-items: center; /* Dono sides center aligned rahengi */
+}
+
+/* ===== Left Side (Fixed Alignment) ===== */
+.left-side {
+  flex: 1.2;            
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Elements ko center mein rakhta hai */
+  align-items: flex-start;
+  padding: 20px 40px;
+}
+
+.left-side .icon-circle img {
+   /* Logo ka size thora aur barhaya gaya hai */
+    width: 250px; 
+    height: auto;
+    
+    /* Heading ke sath distance mazeed control karne ke liye */
+    margin-bottom: -20%; 
+    margin-left: -60px;
+    
+    /* Logo ko thora prominent dikhane ke liye shadow */
+    filter: drop-shadow(0px 6px 12px rgba(0,0,0,0.25));
+    
+    transition: transform 0.3s ease;
+}
+
+.left-side .icon-circle img:hover {
+    transform: scale(1.05);
+}
+.left-side h1 {
+    color: #FFFFFF;
+    font-size: 40px; /* Heading size thora barhaya */
+    font-weight: 600;
+    margin-top: 5px; /* Logo ke bilkul kareeb rakhne ke liye */
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.4);
+}
+
+.left-side p {
+    color: #f0f0f0;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 0; /* Gap khatam karne ke liye */
+    max-width: 500px;
+}
+
+/* ===== Right Side (Compact Form) ===== */
+.right-side {
+    flex: 0.9;              
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.98); 
+    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.3);
+    padding: 25px 35px; /* Padding kam ki taake height kam ho jaye */
+    max-height: 90vh; /* Scrollbar se bachne ke liye */
+    overflow-y: auto; /* Agar screen choti ho to form ke andar scroll aye */
+}
+
+h2 {
+  color: #115562;
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Inputs Compact Layout */
+input, select.input-field {
+    width: 100%;
+    padding: 10px 12px; /* Inner spacing kam ki */
+    margin: 6px 0;      /* Boxes ke darmiyan gap kam kiya */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 13.5px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #115562;
+    outline: none;
+    background: #f9f9f9;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #115562;
+    border: none;
+    border-radius: 10px;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #0e4550;
+    transform: translateY(-2px);
+}
+
+.login-text {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* ===== Responsive (Mobile) ===== */
+@media screen and (max-width: 768px) {
+    .split-container {
+        flex-direction: column;
+        padding-top: 30px;
+    }
+    .left-side {
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+    }
+    .left-side h1 { font-size: 28px; }
+    .right-side {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+
+/* Notification ka main container */
+#notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000; /* Taake sab cheezon ke upar nazar aaye */
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 250px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    display: none; /* Shuru mein chhupa hua */
+    transition: all 0.3s ease;
+    color: #ddd;
+}
+
+/* Success style */
+.notification-success {
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #1e7e34;
+}
+
+/* Error style */
+.notification-error {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #bd2130;
+}
+
+/* Pending/Blue style */
+.notification-info {
+    background-color: #17a2b8;
+    color: white;
+}

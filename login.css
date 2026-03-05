@@ -1,0 +1,149 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.login-page {
+    margin: 0;
+    padding: 20px; /* Mobile par screen se chipkay nahi */
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(rgba(17, 85, 98, 0.8), rgba(17, 85, 98, 0.8)), 
+                url('Uni\ view.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Modern Form Box */
+.login-page .login-form-box {
+    background: rgba(255, 255, 255, 0.98); 
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 100%; /* Default width for responsiveness */
+    max-width: 400px; /* Laptop par zyada bara na ho */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* User Icon */
+.login-page .user-icon {
+    font-size: 50px;
+    color: #115562;
+    margin-bottom: 15px;
+    background: #f0f7f8;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+}
+
+.login-page h2 {
+    color: #115562;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* Inputs */
+.login-page input[type="email"],
+.login-page input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1.5px solid #e1e1e1;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.login-page input:focus {
+    border-color: #115562;
+    box-shadow: 0 0 8px rgba(17, 85, 98, 0.1);
+}
+
+/* Button */
+.login-page .login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #115562, #1a7a8c);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 15px;
+}
+
+.login-page .login-btn:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+/* Links */
+.login-page .forgot-password {
+    font-size: 14px;
+    color: #666;
+}
+
+.login-page .forgot-password a {
+    color: #115562;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ===== Responsive Magic (Media Queries) ===== */
+
+/* Tablets ke liye */
+@media screen and (max-width: 768px) {
+    .login-page .login-form-box {
+        padding: 35px 25px;
+        max-width: 350px;
+    }
+    .login-page h2 {
+        font-size: 22px;
+    }
+}
+
+/* Small Mobile Phones ke liye */
+@media screen and (max-width: 480px) {
+    .login-page {
+        padding: 15px;
+    }
+    .login-page .login-form-box {
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
+    .login-page .user-icon {
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
+        font-size: 40px;
+    }
+    .login-page h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    .login-page input[type="email"],
+    .login-page input[type="password"] {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+}
+#togglePassword{
+    /* position: absolute; */
+    right: 15px; 
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+    /* z-index: 2; */
+    /* margin-left: -20px; */
+}

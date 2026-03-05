@@ -1,0 +1,692 @@
+/* ===== GLOBAL STYLES & FONT ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Aesthetic & Professional Font */
+}
+
+body {
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* ===== TOP NAVBAR ===== */
+.top-navbar {
+    background-color: #115562; /* Updated Main Color */
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-left h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Name aur Icon ke darmiyan fasla */
+}
+#welcomeName {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+/* User Icon Circle */
+.user-icon-circle {
+    width: 38px;
+    height: 38px;
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+/* Hover Effect */
+.user-icon-circle:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+/* Icon size inside circle */
+.user-icon-circle i {
+    font-size: 1.1rem;
+    color: white;
+}
+
+/* Responsive: Mobile par text chota karne ke liye */
+@media (max-width: 480px) {
+    #welcomeName {
+        display: none; /* Mobile par sirf icon dikhega agar space kam ho */
+    }
+}
+
+#searchComplaints {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    width: 250px;
+    font-size: 14px;
+}
+
+.navbar-right button {
+    background-color: #115562;
+    color: white;
+    border: 2px solid white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.navbar-right button:hover {
+    background-color: white;
+    color: #115562;
+}
+
+/* ===== DASHBOARD LAYOUT ===== */
+.dashboard-container {
+    display: flex;
+    min-height: calc(100vh - 120px);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 260px;
+    background-color: #ffffff;
+    border-right: 1px solid #115562;
+    border-left: 1 px solid #115562;
+    padding-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin: 8px 15px;
+    border-bottom: 1px solid  #115562;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #555;
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Icons Style inside Sidebar */
+.sidebar ul li a i {
+    margin-right: 12px;
+    font-size: 18px;
+    color: #115562; /* Icons in theme color */
+    width: 25px;
+    text-align: center;
+}
+
+/* Sidebar Hover Effect */
+.sidebar ul li a:hover {
+    background-color: #f0f7f8; /* Very light tint of theme color */
+    color: #115562;
+    transform: translateX(5px);
+}
+
+.notif-count {
+    background-color: #ff5252;
+    color: white;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-sections {
+    flex: 1;
+    padding: 30px;
+}
+
+#heading, .main-content h1, #notificationsSection h2 {
+    margin-bottom: 20px;
+    color: #115562;
+    font-weight: 600;
+}
+
+/* ===== COMPLAINTS TABLE ===== */
+#complaintsTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+#complaintsTable th {
+    background-color: #115562;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: 500;
+}
+
+#complaintsTable td {
+    padding: 14px 15px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+}
+
+#complaintsTable tr:hover {
+    background-color: #f9f9f9;
+}
+
+.complaint-title {
+    cursor: pointer;
+    color: #115562;
+    font-weight: 500;
+}
+
+/* Actions/Reply Button */
+.reply-btn {
+    background-color: #115562;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.reply-btn:hover {
+    opacity: 0.9;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* ===== PROFILE SECTION ===== */
+.profile-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 5px solid #115562; 
+    border-right: 5px solid #115562; 
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.1);
+    margin-right: 300PX;
+}
+
+.profile-container h2 {
+    text-align: center;
+    color: #115562;
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.profile-table th {
+    background: #f8fbfc;
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    color: #115562;
+    font-weight: 600;
+}
+
+.profile-table td {
+    padding: 15px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+    color: #333;
+}
+
+.edit-btn, .save-btn, .cancel-btn {
+    padding: 8px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+    border: none;
+    transition: 0.3s;
+}
+
+.edit-btn, .save-btn {
+    background: #115562;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #6c757d;
+    color: white;
+    margin-left: 10px;
+}
+
+/* ===== MODAL ===== */
+.modal {
+    display: none; /* Default hide rahega */
+    position: fixed; 
+    z-index: 2000; /* Taake sabse upar rahe */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* Background thora blackish transition */
+    justify-content: center; /* Center alignment horizontal */
+    align-items: center;     /* Center alignment vertical */
+}
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 40%; /* Aap isay adjust kar sakte hain */
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+    animation: slideIn 0.3s ease-out; /* Thora aesthetic effect */
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #115562;
+    color: white;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+/* Notifications Specific */
+#notificationsSection {
+    padding: 20px;
+}
+
+/* ==== Dashboard Overview === */
+/* Banner Styling */
+
+    .uni-banner {
+   width: 100%;
+    height: 450px; /* Height barha di gayi hai */
+    /* Gradient shadow hata di gayi hai taake building saaf nazar aaye */
+    background-image: url('view.jpg'); 
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    display: flex;
+    align-items: flex-end; 
+    padding: 30px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.uni-banner::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%; 
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    z-index: 1;
+}
+   
+
+
+.banner-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* background: linear-gradient(to right, rgba(17, 85, 98, 0.7), transparent); */
+}
+
+/* Welcome Bar */
+.welcome-bar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9); /* Halka white transparent background */
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-top: -50px;
+}
+.welcome-text h2 { 
+    color: #115562; 
+    font-size: 24px; 
+    margin: 0; }
+.user-profile-icon i {
+    font-size: 45px; 
+    color: #115562;
+}
+
+/* Lower Row: Graph & Urgent List */
+.dashboard-footer-row {
+   display: grid;
+    grid-template-columns: 2fr 1fr; 
+    gap: 25px;
+    margin-top: 30px;
+}
+.graph-container.full-width {
+    width: 150%;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px; /* Urgent section se gap ke liye */
+    border: 1px solid #c5c5c5 ;
+}
+.urgent-container {
+   background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    border: 1px solid  #c5c5c5 ;
+}
+
+.urgent-container h3 {
+    color: #d9534f; 
+    margin-bottom: 20px; 
+    font-size: 18px; 
+    display: flex;
+    align-items: center;
+    gap: 10px;}
+
+/* Urgent Complaint Item Styling */
+.urgent-item {
+    padding: 15px;
+    border-left: 5px solid #d9534f;
+    background: #fff9f9;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: transform 0.2s;}
+    .urgent-item:hover {
+    transform: scale(1.02);
+}
+
+/* Stats Grid Container */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Base Stat Card Styling */
+.stat-card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 12px;
+    color: white; /* Text color white like the reference */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Icons Styling */
+.stat-icon {
+    font-size: 2.5rem;
+    margin-right: 20px;
+    opacity: 0.9;
+}
+
+/* Stats Text Info */
+.stat-info h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-info p {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 5px 0 0 0;
+}
+
+/* --- Color Variations (Matching your Reference Image) --- */
+
+.stats-grid{
+    margin-top: 20px;
+}
+
+/* Total - Blue */
+.stat-card {
+    /* background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); */
+    background: #224abe;
+}
+
+/* Pending - Orange/Yellow */
+.stat-card.pending {
+    background: linear-gradient(135deg, #f6ad55 0%, #ed8936 100%);
+    background: #ec822b;
+}
+
+.stat-card.escalated {
+    background-color: #e53e3e; /* Red color */
+    color: white;
+}
+
+/* Agar aapne pehle progressCount ki styling ki thi to usay escalatedCount se replace kar dein */
+
+/* Resolved - Green */
+.stat-card.resolved {
+    /* background: linear-gradient(135deg, #68d391 0%, #48bb78 100%); */
+    background: #16be5c;
+}
+
+/* Responsive adjust for mobile */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Graph Container Styling */
+.graph-container {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Soft shadow like the image */
+    flex: 1.5; /* Takes more space than the urgent list */
+    min-height: 400px;
+}
+
+.graph-container h3 {
+    font-size: 1.2rem;
+    color: #334155;
+    margin-bottom: 20px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Canvas size adjustment */
+#complaintChart {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+/* Urgent */
+.urgent-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.view-all-link {
+    font-size: 0.8rem;
+    color: #4e73df;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Row structure for each complaint */
+.urgent-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f8f9fc;
+}
+
+.complaint-title-text {
+    flex: 2; /* Title zyada space lega */
+    font-weight: 500;
+    color: #333;
+}
+
+.status-badge-urgent {
+    flex: 1; /* Center mein align hoga */
+    text-align: center;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    min-width: 85px;
+}
+
+.time-text-urgent {
+    flex: 1; /* Right side par align hoga */
+    text-align: right;
+    color: #858796;
+    font-size: 0.85rem;
+}
+
+/* Notification */
+#notificationsSection{
+    margin-right: 450px;
+}
+
+
+/* Desktop par menu icons hide rahengi */
+#menu-toggle, #menu-close {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* --- Responsive View (Mobile/Tablet) --- */
+@media (max-width: 768px) {
+    #menu-toggle {
+        display: block; /* Hamburger icon nazar aaye */
+        margin-right: 15px;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -250px; /* Sidebar screen se bahar chala jaye */
+        top: 0;
+        height: 100vh;
+        width: 250px;
+        z-index: 1000;
+        transition: 0.3s ease-all;
+        background: #fff;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    /* Jab sidebar open ho toh is class se show hoga */
+    .sidebar.active {
+        left: 0;
+    }
+
+    #menu-close {
+        display: block; /* Sidebar ke andar cross nazar aaye */
+        text-align: right;
+        padding: 20px;
+        color: #333;
+    }
+
+    .main-content {
+        margin-left: 0 !important; /* Main content full width ho jaye */
+        width: 100%;
+    }
+}
+
+/* Manage Complaints */
+/* --- Table Zebra Striping --- */
+
+/* Har dusri row (even) ka background halka sa dark/grey karne ke liye */
+#complaintsTable tbody tr:nth-child(even) {
+    background-color: #c5c5c5;
+}
+
+/* Row par hover effect taake pata chale kaunsi row selected hai */
+#complaintsTable tbody tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease;
+}
+
+/* --- Update Button Styling --- */
+.action-btn {
+    background-color: #115562; /* Aapke dashboard ka primary theme color */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Icon aur text ke darmiyan fasla */
+    transition: all 0.3s ease;
+}
+
+.action-btn i {
+    font-size: 12px;
+}
+
+.action-btn:hover {
+    background-color: #0d434d; /* Hover par thoda dark color */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transform: translateY(-1px);
+}
+
+/* --- Badges Styling (Optional but recommended) --- */
+.s-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #e0e0e0;
+}

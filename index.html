@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Management Web</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="app.js"></script>
+</head>
+<body>
+    <div id="notification" class="notification"></div>
+
+    <div class="split-container">
+        <div class="left-side">
+            <div class="icon-circle">
+                <img src="uni_logo.png" alt="User Icon">
+            </div>
+            <h1 style="color:#d2d5d4;">Complaint Management system</h1>
+            <p style="color:#b7b7b7;">
+                Welcome to the Complaint Management System. Here you can register your account to submit complaints,
+                view status, and stay updated. This system helps streamline communication and ensures issues are
+                handled efficiently.
+            </p>
+        </div>
+
+        <div class="right-side">
+            <h2>Register An Account</h2>
+            <form id="registerForm">
+                <input type="text" id="firstName" placeholder="First Name" required>
+                <input type="text" id="lastName" placeholder="Last Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                
+                <input type="text" id="universityId" placeholder="Roll No / Employee ID" required>
+
+                <select id="role" required class="input-field">
+                    <option value="">--Select Role--</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="vc">VC</option>
+                    <option value="dean">Dean</option>
+                    <option value="hod">HOD</option>
+                    <option value="warden">Hostel Warden</option>
+                    <option value="transport">Transport In-charge</option>
+                </select>
+
+                <select id="department" required class="input-field">
+                    <option value="">--Select Department / Office--</option>
+                    <optgroup label="Academic Departments">
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Biochemistry">Biochemistry</option>
+                        <option value="Business Administration">Business Administration</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Botony">Botony</option>
+                        <option value="IR">IR</option>
+                        <!-- <option value="English">English</option> -->
+                    </optgroup>
+                    <optgroup label="Administrative Units">
+                        <option value="Hostel Administration">Hostel Administration</option>
+                        <option value="Transport Office">Transport Office</option>
+                        <option value="Finance Department">Finance Department</option>
+                        <option value="Library">Library</option>
+                        <option value="Security Office">Security Office</option>
+                    </optgroup>
+                </select>
+
+                <input type="password" id="password" placeholder="Create Password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+
+                <button type="submit">Register Account</button>
+                <p id="msg" style="color: red; text-align: center; margin-top: 10px;"></p>
+
+                <p id="passwordError" style="color: red; text-align: center; display: none;">
+                    Passwords do not match!
+                </p>
+            </form>
+
+            <p class="login-text">
+                Already registered? <a href="login.html">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const registerForm = document.getElementById("registerForm");
+        const passwordError = document.getElementById("passwordError");
+
+        registerForm.addEventListener("submit", function(event) {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                event.preventDefault(); 
+                passwordError.style.display = "block"; 
+            } else {
+                passwordError.style.display = "none"; 
+            }
+        });
+    </script>
+</body>
+</html>

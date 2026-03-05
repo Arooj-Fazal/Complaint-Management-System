@@ -1,0 +1,1369 @@
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+    background: #ffffff; /* Pehle #f0f2f5 tha, ab white kar den */
+   font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    /* --- Basic Structure (Aapka Code) --- */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #115562;
+    color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+}
+
+
+
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Name aur Icon ke darmiyan fasla */
+}
+#welcomeName {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+/* User Icon Circle */
+.user-icon-circle {
+    width: 38px;
+    height: 38px;
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+/* Hover Effect */
+.user-icon-circle:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+/* Icon size inside circle */
+.user-icon-circle i {
+    font-size: 1.1rem;
+    color: white;
+}
+
+/* Responsive: Mobile par text chota karne ke liye */
+@media (max-width: 480px) {
+    #welcomeName {
+        display: none; /* Mobile par sirf icon dikhega agar space kam ho */
+    }
+}
+
+
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    background-color: #fff;
+    padding-top: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    border-right:2px solid  #115562;
+    border-left:2px solid  #115562;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 15px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #115562;
+}
+
+.sidebar ul li a:hover {
+    background-color:#115562;
+    color: white;
+}
+
+
+
+.sidebar ul li a:hover i {
+    color: #ffffff !important; /* Icon white */
+    transform: scale(1.1); /* Optional: Icon thoda sa bada hoga jo acha lagta hai */
+    transition: 0.3s;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 200px;
+    padding: 90px 30px 30px 30px;
+    width: calc(100% - 200px);
+    /* border: 2px solid #115562; */
+    min-height: calc(100vh - 120px); /* Footer aur Header ki jagah chor kar baqi screen */
+    padding-bottom: 100px; /* Footer se thora fasla rakhne ke liye */
+    overflow-y: auto;
+    flex: 1;
+    
+}
+footer {
+    background-color: #1e565c;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+    position: relative; /* Fixed ki jagah relative use karein taake content ke baad aaye */
+    clear: both;
+    margin-top: auto; /* Agar flex container hai toh ye kaam karega */
+}
+
+/* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border: 1px solid  #115562;
+}
+
+input, textarea, select, button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color:#115562;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    background-color: #115562;
+}
+
+/* Sections */
+section {
+    margin-bottom: 30px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color:#115562;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+
+
+/* ===== Complaints List Styling ===== */
+/* Centered complaints on screen */
+/* Full screen center for complaints container */
+#complaintsContainer {
+     display: flex;
+    flex-wrap: wrap; /* allow items to move to next line */
+    gap: 15px;       /* space between cards */
+    justify-content: flex-start; /* align items to start */      /* sidebar width */
+}
+
+#complaintsContainer h3 {
+    margin-bottom: 15px;
+    color: #115562;             /* heading color */
+    /* margin-left: 850px; */
+    margin-bottom: -80px;
+}
+
+
+#complaintsList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+
+.complaintCard {
+    flex: 1 1 250px; /* grow, shrink, and have a base width */
+    min-width: 200px; 
+    max-width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+
+.complaintCard:hover {
+    transform: translateY(-3px); /* subtle hover effect */
+}
+
+.complaintCard h4 {
+    margin: 0 0 10px 0;
+    color: #115562;            /* primary color */
+}
+
+.complaintCard p {
+    margin: 5px 0;
+    color: #333;
+}
+
+
+#updateButton {
+  background-color: #115562;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+
+/* ===== Notifications Badge ===== */
+
+.badge {
+    background-color: #ff0000; /* Bright Red */
+    color: white;
+    border-radius: 20%;
+    padding: 2px 6px;
+    font-size: 2px;
+    font-weight: normal;
+    display: none; /* By default hide rahega, JS show karega */
+    position: relative;
+ /* Text ke thoda upar dikhane ke liye */
+    /* left: -5px; */
+    min-width: 10px;
+    text-align: center;
+    margin-left: 2px;
+}
+
+#notificationsList {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+}
+
+
+
+
+#notificationsList li {
+    background-color: #66656533;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    border-left: 4px solid   #115562;
+    border-right: 4px solid   #115562;
+}
+
+#notificationsList li strong {
+    display: block;
+    font-size: 16px;
+    color: #333;
+}
+
+#notificationsList li small {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Notifications overlay */
+#notificationsSection {
+    display: none;               
+    position: absolute;          /* Main content ke upar */
+    top: 60px;                   /* Navbar ke neeche */
+    left: 0;                     /* Sidebar ke neeche adjust kar sakti ho agar width fix hai */
+    width: 70%;
+    max-height: calc(100vh - 60px);
+    background-color: rgba(255,255,255,0.98);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 50;
+    margin-left: 210px;
+
+}
+
+
+/* feedback section */
+
+/* Feedback Section */
+/* #feedbackSection {
+    padding: 20px;
+    background-color: #fff; /* Same as complaint cards */
+    /* border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    width: 400px;
+} */
+
+/* Feedback Textarea */
+/* #feedbackSection textarea {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: none;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+ */
+/* Feedback Submit Button */
+/* #feedbackSection button {
+    background-color:  #115562; /* Primary color */
+    /* color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+} */
+
+/* #feedbackSection button:hover {  */
+    /* background-color: #137a8f; */
+/* } */
+
+/* Optional: Center the section in main content */
+/* #feedbackSection { */
+    /* margin-left: 220px;  */
+/* }  */
+
+
+
+/* Feedback Section */
+#feedbackSection {
+    display: block;
+    margin-left: 0px; /* Sidebar width ke side */
+    padding: 20px;
+    width: calc(100% - 220px); /* Sidebar ke baad poori width */
+    background-color: #f9f9f9; /* Light background, card jaisa nahi */
+    min-height: calc(100vh - 60px); /* Navbar height adjust */
+    box-sizing: border-box;
+}
+
+/* Feedback Header */
+#feedbackSection h3 {
+    margin-bottom: 20px;
+    color: #333;
+    margin-left: 0px;
+}
+
+/* Feedback Textarea */
+#feedbackSection textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+    font-size: 16px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* Feedback Submit Button */
+#feedbackSection button {
+    background-color: #115562; /* Primary color */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#feedbackSection button:hover {
+    background-color: #136575; /* Slightly darker on hover */
+}
+
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+/* Edit complaints */
+/* ===== Edit Complaints Table ===== */
+#complaintsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-family: Arial, sans-serif;
+}
+
+#complaintsTable th, #complaintsTable td {
+    border: 1px solid #6A4CFF; /* Primary color */
+    padding: 10px;
+    text-align: left;
+}
+
+#complaintsTable th {
+    background-color: #fff;
+    color: #115562;
+    border: solid #115562;
+    }
+
+#complaintsTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#complaintsTable button {
+    background-color: #6A4CFF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#complaintsTable button:hover:not(:disabled) {
+    background-color: #7E57C2;
+}
+
+#complaintsTable button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+
+
+/* Edit form styling */
+/* ===== Edit Complaints Section ===== */
+#editComplaintsSection {
+    padding: 20px;
+    background-color: #f9f9f9; /* light background for table area */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1000px;
+    border-left: 4px solid #115562;
+    border-right: 4px solid #115562;
+}
+
+#editComplaintsSection h3 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* Complaints Table */
+#complaintsTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+#complaintsTable th,
+#complaintsTable td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+#complaintsTable th {
+    background-color: #115562; /* main color */
+    color: #fff;
+    font-weight: bold;
+}
+
+#complaintsTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#complaintsTable tr:hover {
+    background-color: #e0e0e0;
+}
+
+/* Edit Button */
+#complaintsTable button {
+    padding: 6px 23px 5px 23px ;
+    background-color: #fff;
+    color:  #115562;
+    border:  1px solid #115562;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#complaintsTable button:hover {
+    color:#fff;
+    background-color: #115562;
+
+}
+
+/* ===== Edit Form Section ===== */
+#editFormSection {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+    border-left: 4px solid #115562 ;
+    border-right: 4px solid #115562;
+}
+
+#editFormSection h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#editFormSection label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#editFormSection input[type="text"],
+#editFormSection textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#editFormSection button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #166575;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#editFormSection button:hover {
+    background-color: #1d7d91;
+}
+
+/* Cancel button */
+#editFormSection button:last-child {
+    background-color: #ccc;
+    color: #333;
+    margin-left: 10px;
+}
+
+#editFormSection button:last-child:hover {
+    background-color: #b3b3b3;
+}
+
+
+
+
+
+/* Profile */
+/* ===== PROFILE SECTION ===== */
+
+/* Profile Section ko center aur saaf karne ke liye */
+#profileSection {
+    background: #f4f7f6;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Table layout fix */
+#profileTable {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    table-layout: fixed; /* Taake columns apni jagah na badlain */
+}
+
+#profileTable th, #profileTable td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+/* INPUT BOXES FIX: Jo image mein bahar nikal rahay hain */
+#profileTable input {
+    width: 100% !important;
+    padding: 8px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important; /* Ye zaroori hai */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* BUTTONS FIX: Jo aik doosre ke upar charh rahay hain */
+#profileTable td:last-child {
+    display: flex;
+    flex-direction: column; /* Buttons ko upar neechy karne ke liye */
+    gap: 5px;
+    align-items: center;
+    border: none;
+}
+
+.save-btn, #editProfileBtn {
+    background: #1a5c5c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 80px;
+}
+
+.cancel-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 80px;
+}
+
+
+
+
+/* 
+#profileSection,
+#profileEditSection {
+    width: 800px;
+    max-width: 95%;
+    margin: 40px auto;
+    padding: 30px 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+    border-left:4px solid #115562;
+    border-right:4px solid #115562;
+    color: #115562;
+}
+
+#profileSection h3,
+#profileEditSection h3 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #115562;
+    font-size: 24px;
+    font-weight: 700;
+    
+}
+
+#profileTable{
+    width:40px;
+    border-collapse: collapse;
+    text-align: center; 
+}
+
+
+
+
+#profileTable th, 
+#profileTable td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    vertical-align: middle; 
+} */
+/* #profileTable th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+} */
+
+/* ===== FORM ELEMENTS ===== */
+#profileForm input,
+#profileForm select,
+#profileEditSection input,
+#profileEditSection select {
+    width: 100%;
+    
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1.5px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#profileForm input:focus,
+#profileForm select:focus,
+#profileEditSection input:focus,
+#profileEditSection select:focus {
+    outline: none;
+    border-color: #6A4CFF;
+    box-shadow: 0 0 8px rgba(106, 76, 255, 0.3);
+}
+
+/* ===== BUTTONS ===== */
+#profileForm button,
+#profileEditSection button {
+    width: 48%;
+    padding: 12px 0;
+    margin: 10px 1%;
+    border: none;
+    border-radius: 8px;
+    background-color: red;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#profileForm button:hover,
+#profileEditSection button:hover {
+    background-color: #7E57C2;
+    transform: translateY(-2px);
+}
+
+/* ===== LAYOUT FOR EDIT BUTTONS ===== */
+#profileEditSection .button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ===== LABELS ===== */
+#profileEditSection label {
+    font-weight: 500;
+    color: #333;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 500px) {
+    #profileSection,
+    #profileEditSection {
+        padding: 20px;
+        width: 90%;
+    }
+
+    #profileForm button,
+    #profileEditSection button {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
+
+
+
+
+/* ===== File Upload / Attachment ===== */
+form input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: 0.3s;
+}
+
+form input[type="file"]:hover {
+    border-color: #115562;
+    background-color: #f0f0ff;
+}
+
+form input[type="file"]::-webkit-file-upload-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #115562;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #1c8397;
+}
+
+
+
+
+
+
+/* ===== Input, Textarea, Select Hover ===== */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea,
+form select,
+form input[type="file"] {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Hover effect */
+form input[type="text"]:hover,
+form input[type="email"]:hover,
+form input[type="password"]:hover,
+form textarea:hover,
+form select:hover,
+form input[type="file"]:hover {
+    border-color: #115562;  /* Primary color */
+    box-shadow: 0 0 5px rgba(106, 76, 255, 0.5);
+}
+
+/* Focus effect (optional, better UX) */
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form textarea:focus,
+form select:focus,
+form input[type="file"]:focus {
+    border-color: #115562;
+    outline: none;
+    box-shadow: #115562;
+}
+
+
+
+/* Sidebar ke tamam icons ke liye spacing */
+.sidebar ul li a i {
+    margin-right: 10px; /* Icon aur text ke beech gap */
+    width: 20px;        /* Tamam icons ko ek hi line mein align karne ke liye fixed width */
+    text-align: center;
+}
+
+/* Logout icon ka color agar red rakhna chahen */
+#logoutBtn i {
+    color: #d9534f;
+}
+
+#logoutBtn:hover i {
+    color: white; /* Hover karne par icon bhi white ho jaye */
+}
+
+#userNameDisplay {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Agar naam bahut lamba ho to '...' show hoga */
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+/* Sidebar Link Alignment */
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #333;
+    transition: 0.3s;
+}
+
+/* Icon Styling */
+.sidebar ul li a i {
+    margin-right: 12px;
+    width: 25px; /* Taki icons line mein rahein */
+    text-align: center;
+    font-size: 18px;
+    color: #00695c; /* Professional Teal Color */
+}
+
+/* Text Styling */
+.sidebar ul li a span {
+    font-size: 15px;
+}
+
+/* Badge ko Right side push karne ke liye */
+.sidebar ul li a .badge {
+    margin-left: auto;
+    background-color: #e74c3c;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    /* Main Layout adjustment */
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    /* Sidebar ko mobile par hide karna */
+    .sidebar {
+        position: fixed;
+        left: -250px; /* Screen se bahar */
+        z-index: 1000;
+        height: 100%;
+        transition: 0.3s;
+        width: 250px;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    }
+
+    /* Jab sidebar open ho */
+    .sidebar.active {
+        left: 0;
+    }
+
+    /* Main content ko poori width dena */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px;
+        
+    }
+
+    /* Mobile Menu Button dikhana */
+    .mobile-nav-toggle {
+        display: block !important;
+        cursor: pointer;
+        font-size: 24px;
+        color: white;
+        margin-right: 15px;
+    }
+}
+
+/* Desktop par Toggle button hide rakhen */
+.mobile-nav-toggle {
+    display: none;
+
+}
+/* Edit Profile section ko default par hide rakhein */
+#editProfileSection {
+    display: none;
+    
+    
+    
+}
+
+
+/* Dashboard Card Main Container */
+.dashboard-card {
+   background: transparent; /* White background khatam */
+    box-shadow: none;        /* Shadow khatam */
+    margin: 0;               /* Side margins khatam */
+    border: none;            /* Border khatam */
+    overflow: visible;
+}
+
+/* Upper Cover Image */
+.cover-photo img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Profile Content Row */
+
+
+/* Left Side: Avatar and Name */
+.profile-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar-container img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-top: -60px; /* Is se icon image ke thora upar chala jayega */
+    background: #2c3e50;
+}
+
+.name-details h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #34495e;
+    font-weight: 700;
+}
+
+.ag-no {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+/* Badges */
+.badges {
+    margin-top: 5px;
+}
+
+.badge {
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.student-badge { background: #e1f5fe; color: #0288d1; }
+.unverified-badge { background: #ffebee; color: #e53935; margin-left: 5px; }
+
+/* Right Side: Contact Info */
+.profile-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* Font size ko 14px se barha kar 16px ya 17px kar diya */
+    font-size: 17px; 
+    color: #444;}
+
+.info-item i {
+    color: #1e565c;
+    /* Icons ka size bhi thora barha diya */
+    font-size: 20px; 
+    width: 25px;
+    text-align: center;}
+
+.info-item strong {
+    color: #222;
+    font-weight: 600;}
+
+#displayEmail, #displayRegDate {
+    font-weight: 500;
+    color: #1e565c; /* Aapke theme ka color */
+}
+    
+
+
+/* 1. Cover Photo Container (Ab straight rahega) */
+.cover-photo {
+    position: relative;
+    width: 100%;
+    height: 350px; /* Height thori barha di hai taake upar wala view sahi dikhe */
+    background: #f0f0f0;
+    overflow: hidden;
+}
+
+.cover-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Image ko upar se start karne ke liye taake building ka top nazar aaye */
+    object-position: center top center top; 
+    border-bottom: 4px solid #1e565c; /* Optional: Neeche ek patli line jo theme se match kare */
+}
+
+/* 2. Profile Header (Icons aur content ke darmiyan gap ke liye) */
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 60px;
+     /* Padding barhane se name aur icons mein zyada gap aayega */
+    background: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+/* 3. Avatar Container (Ab thora niche aur clear gap ke sath) */
+.avatar-container img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 6px solid #185663; /* White border taake image ke sath contrast banay */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: #fff;
+    /* Is margin ko adjust kar ke aap icon ko image ke upar kitna rakhna hai control kar sakti hain */
+    margin-top: -10px; 
+}
+
+/* 4. Name Details Gap */
+.name-details {
+    margin-top: 20px; /* Avatar ke neeche text ka gap */
+}
+
+.name-details h2 {
+    margin-bottom: 8px;
+    font-size: 26px;
+    letter-spacing: 1px;
+}
+
+/* 5. Right Side Info Gap */
+.profile-right {
+    display: flex;
+    flex-direction: column;
+    gap: -60px;
+    margin-right: 150px;
+     /* Har info line ke darmiyan gap */
+    padding-top: 10px;
+}
+/* Stats Cards Styling */
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+    }
+}
+
+.content-section {
+  display: none;
+}
+
+
+
+/* Dshboard Overview */
+.hero {
+    background: linear-gradient(175deg, #115562 0%, #15aabf 100%);
+    padding: 50px 40px;
+    border-radius: 20px;
+    color: white;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(59, 91, 219, 0.2);
+}
+
+.hero h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.profile-header {
+  background: #ffffff;
+    padding: 30px;
+    border-radius: 20px; /* More rounded */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Soft shadow */
+    border: none !important; /* Saari borders khatam */   
+}
+
+.stats-card {
+  background: #fff;
+    flex: 1;
+    padding: 25px; /* Padding barha di */
+    border-radius: 16px; /* Smooth corners */
+    display: flex;
+    align-items: center; /* Vertical center alignment */
+    justify-content: flex-start; /* Icon left side par */
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Soft premium shadow */
+    
+    transition: transform 0.3s ease;
+    border: 1px solid #a5a5a5;
+}
+.stats-card:hover {
+    
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* Icon Circle Styling */
+.stats-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 12px; 
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    font-size: 30px;
+    margin-left: 100px;
+}
+
+/* Card 1: Total Complaints (Blue Theme) */
+.stats-card:nth-child(1){
+     background: linear-gradient(135deg, #2c40ac 0%, #15aabf 100%);
+    
+}
+.stats-card:nth-child(1) .stats-icon{
+    /* background-color:  #0288d1; */
+    color: #fff;
+}
+.stats-card:nth-child(2) .stats-icon{
+    /* background-color:  #0288d1; */
+    color: #fff;
+}
+.stats-card:nth-child(3) {
+    background: linear-gradient(135deg, #3bac2c 0%, #6ab67d 100%);
+}
+
+    /* background-color: #eef2ff;  */
+    /* color: #4c6ef5;  */
+
+.stats-card:nth-child(2){
+    background: linear-gradient(135deg, #b95d31 0%, #b66b09 100%);
+
+}
+/* Card 2: Pending Complaints (Orange Theme) */
+ .stats-card:nth-child(3) .stats-icon {
+     color: #fff;
+}
+
+/* Card 3: Resolved Complaints (Green Theme) */
+
+.stats-info {
+    display: flex;
+    flex-direction: column-reverse; /* Pehle number phir label */
+}
+
+.stats-label {
+    font-size: 13px;
+    color: #d0d2d6; /* Grey color for secondary text */
+    margin: 0;
+}
+
+.stats-info h3 {
+    font-size: 26px; /* Bara size */
+    font-weight: 700;
+    margin: 0;
+    color: #bcc3d3;
+}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+
+@media screen and (max-width: 992px) {
+    /* Profile Section ko tablets par adjust karein */
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 30px;
+    }
+    .profile-right {
+        margin-right: 0;
+        margin-top: 20px;
+        align-items: center;
+    }
+    #profileSection, #profileTable {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* 1. Sidebar Toggle Logic */
+    .sidebar {
+        left: -250px !important; /* Hide by default */
+        width: 250px;
+    }
+   .sidebar.active {
+        left: 0 !important; /* Show when active */
+    }
+
+    /* 2. Main Content Full Width */
+    .main-content {
+       margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    /* 3. Stats Cards (Vertical stacking) */
+    .stats-container {
+       flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stats-card {
+        width: 100%;
+    }
+
+    .stats-icon {
+        margin-left: 0; /* Icon center ya left karein */
+        width: 60px;
+        height: 60px;
+    }
+
+    /* 4. Forms and Tables */
+    #editFormSection, #editComplaintsSection {
+        width: 95%;
+        overflow-x: auto; /* Table mobile par scroll ho sakay */
+    }
+
+    #complaintsTable th, #complaintsTable td {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    /* 5. Feedback and Profile */
+   
+    .cover-photo {
+        height: 200px; /* Mobile par cover photo choti */
+    }
+}
+/* Desktop par close button ko hide rakhein */
+.close-sidebar {
+    display: none; 
+    cursor: pointer;
+    font-size: 24px;
+    color: #115562;
+    padding: 15px;
+    text-align: right;
+}
+
+/* Mobile Mode (Responsive) */
+@media screen and (max-width: 768px) {
+    .close-sidebar {
+        display: block; /* Mobile par show ho jayega */
+    }
+
+    .sidebar {
+        left: -250px; /* Shuru mein chupa hoga */
+        transition: 0.3s;
+    }
+
+    .sidebar.active {
+        left: 0 !important; /* Click par bahar aayega */
+    }
+}

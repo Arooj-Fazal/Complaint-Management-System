@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet" href="studentDashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script type="module" src="https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js"></script>
+
+    <script type="module" src="studentDashboard.js" defer></script>
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <div class="mobile-nav-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i> </div>
+        <div class="nav-left">
+            <h2>Student Dashboard</h2>
+        </div>
+        <div class="navbar-right">
+            <div class="user-info">
+            <span id="welcomeName">Welcome, </span>
+            <div class="user-icon-circle">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+        
+            
+        </div>    </div>
+</header>
+
+<aside class="sidebar">
+    <div class="close-sidebar" onclick="toggleSidebar()">
+        <i class="fas fa-times"></i> </div>
+    <ul>
+        <li><a href="#" id="overviewLink"><i class="fas fa-th-large"></i><span>Dashboard Overview</span></a></li>
+        <li><a href="#" id="notificationsLink"><i class="fas fa-bell"></i><span>Notifications</span>
+        <span id="notificationCount" class="badge"></span>
+        </a></li>
+        <li><a href="#" id="showComplaintsBtn"><i class="fas fa-paper-plane"></i><span>Submit Complaints</span></a></li>
+        <li><a href="#" id="viewComplaintsLink"><i class="fas fa-edit"></i><span>Edit Complaints</span></a></li>
+        <li><a href="#" id="sidebarSubmitComplaint"><i class="fas fa-file-alt"></i><span>Complaint Form</span></a></li>
+        <li><a href="#" id="feedbackLink"><i class="fas fa-comment-dots"></i><span>Submit Feedback</span></a></li>
+        <li><a href="#" id="profileLink"><i class="fas fa-user-circle"></i><span>Profile</span></a></li>
+        <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+        <!-- <li><a href="#"><i class="fas fa-home"></i> <span>Close</span></a></li> -->
+    </ul>
+</aside>
+
+<main class="main-content">
+
+<!-- Overview Section -->
+<section id="overviewSection" class="content-section">
+    
+    
+
+        <div class="hero">
+   <h1>Welcome Back 👋</h1>
+   <p>Manage and track your complaints efficiently</p>
+</div>
+
+        <div class="profile-header">
+            <div class="profile-left">
+                <div class="avatar-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Student Icon">
+                </div>
+                <div class="name-details">
+                    <h2 id="displayStudentName"></h2>
+                    <div class="badges">
+                        <span class="badge student-badge">Student</span>
+                        <span class="badge status-badge" id="displayStatus">Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-right">
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span><strong>Email:</strong> <span id="displayEmail">...</span></span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span><strong>Registration Date:</strong> <span id="displayRegDate">N/A</span></span>
+                </div>
+            </div>
+        </div>
+         <div class="stats-container">
+    <div class="stats-card">
+        <div class="stats-info">
+            <p class="stats-label">Total Complaints</p>
+            <h3 id="totalComplaintsCount">0</h3>
+        </div>
+        <div class="stats-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+    </div>
+
+    <div class="stats-card">
+        <div class="stats-info">
+            <p class="stats-label">Pending Complaints</p>
+            <h3 id="pendingComplaintsCount">0</h3>
+        </div>
+        <div class="stats-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+    </div>
+
+    <div class="stats-card">
+        <div class="stats-info">
+            <p class="stats-label">Resolved Complaints</p>
+            <h3 id="resolvedComplaintsCount">0</h3>
+        </div>
+        <div class="stats-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+    </div>
+</div>
+
+
+    
+    <!-- <div class="stats-container">
+    <div class="stats-card">
+        <div class="stats-info">
+            <p class="stats-label">Total Complaints</p>
+            <h3 id="totalComplaintsCount">0</h3>
+        </div>
+        <div class="stats-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+    </div>
+
+    <div class="stats-card">
+        <div class="stats-info">
+            <p class="stats-label">Pending Complaints</p>
+            <h3 id="pendingComplaintsCount">0</h3>
+        </div>
+        <div class="stats-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+    </div>
+
+    <div class="stats-card">
+        <div class="stats-info">
+            <p class="stats-label">Resolved Complaints</p>
+            <h3 id="resolvedComplaintsCount">0</h3>
+        </div>
+        <div class="stats-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+    </div>
+</div> -->
+</section>
+
+<!-- Submit Complaint -->
+<section id="submitComplaintSection" class="content-section">
+    <h3>Submit Complaint</h3>
+    <form id="complaintForm">
+        <input type="text" placeholder="Title" id="complaintTitle" required>
+        <textarea placeholder="Description" id="complaintDesc" required></textarea>
+
+        <select id="complaintCategory">
+            <option value="">Select Category</option>
+            <option value="Academic">Academic</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Transport">Transport</option>
+        </select>
+
+        <button type="submit" id="submitButton">Submit</button>
+        <!-- <button type="button" id="updateButton">Update</button> -->
+    </form>
+</section>
+
+<!-- View Complaints -->
+<section id="viewComplaintsSection" class="content-section">
+    <div id="complaintsContainer">
+        <h3>My Complaints</h3>
+        <div id="complaintsList"></div>
+    </div>
+</section>
+
+<!-- Profile -->
+<section id="profileSection" class="content-section">
+    <h3>Profile</h3>
+    <div id="profileTableSection">
+        <table id="profileTable" >
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div id="editProfileSection">
+        <h3>Edit Profile</h3>
+        <form id="editProfileForm">
+            <input type="hidden" id="editUserId">
+            <input type="text" id="editFirstName" required>
+            <input type="text" id="editLastName" required>
+            <input type="email" id="editEmail" required>
+            <input type="password" id="editPassword" required>
+            <button type="submit">Update</button>
+            <button type="button" id="cancelProfileEditBtn">Cancel</button>
+        </form>
+    </div>
+</section>
+
+<!-- Notifications -->
+<section id="notificationsSection" class="content-section">
+    <h3>Notifications</h3>
+    
+    <ul id="notificationsList"></ul>
+</section>
+
+<!-- 
+
+-->
+<section id="feedbackSection" class="content-section">
+    <h3>Feedback</h3>
+    <form id="feedbackForm">
+        <textarea id="feedbackText" required></textarea>
+        <button type="submit">Submit Feedback</button>
+    </form>
+</section>
+
+<!-- Edit Complaints -->
+<section id="editComplaintsSection" class="content-section">
+    <h3>Edit Complaints</h3>
+    <table id="complaintsTable" >
+        <thead>
+            <tr>
+                <th>Complaint ID</th>
+                <th>Title</th>
+                <th>Submission Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<!-- Edit Form -->
+<section id="editFormSection" class="content-section">
+    <h3>Edit Complaint</h3>
+    <input type="hidden" id="editComplaintId">
+    <input type="text" id="editTitle">
+    <textarea id="editDescription"></textarea>
+    <input type="text" id="editCategory">
+    <button onclick="updateComplaint()">Update Complaint</button>
+     <!-- <button id="updateComplaintBtn">Update Complaint</button> -->
+    <button id="cancelEditBtn">Cancel</button>
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Complaint Management System</p>
+</footer>
+<script>
+    function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        // Check karein ke sidebar exist karta hai ya nahi
+        if (sidebar) {
+            sidebar.classList.toggle('active');
+        } else {
+            console.error("Sidebar element nahi mila! Class name check karein.");
+        }
+    }
+    function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+    </script>
+
+</body>
+</html>
