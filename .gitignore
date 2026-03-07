@@ -1,0 +1,10 @@
+# Firebase config aur environment files
+.env
+*.local
+
+# OS related files
+Thumbs.db
+.DS_Store
+
+# Node modules (agar aap kabhi npm use karein)
+node_modules/
