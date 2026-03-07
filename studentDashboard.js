@@ -66,7 +66,43 @@ document.getElementById('feedbackLink')?.addEventListener('click', e => { e.prev
 document.getElementById('notificationsLink')?.addEventListener('click', e => { e.preventDefault(); showSection('notifications'); loadNotifications(auth.currentUser.uid); });
 
 // ===== Logout =====
-document.getElementById('logoutBtn')?.addEventListener('click', e => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html").catch(err => alert(err.message)); });
+// document.getElementById('logoutBtn')?.addEventListener('click', e => { e.preventDefault(); signOut(auth).then(() => window.location.href="login.html").catch(err => alert(err.message)); });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Modal elements
+    const logoutBtn = document.getElementById("logoutBtn");
+    const logoutModal = document.getElementById("logoutModal");
+    const confirmBtn = document.getElementById("confirmLogoutBtn");
+    const cancelBtn = document.getElementById("cancelLogoutBtn");
+
+    if (logoutBtn && logoutModal) {
+        // Sidebar link par click
+        logoutBtn.onclick = (e) => {
+            e.preventDefault();
+            logoutModal.style.display = "flex"; 
+        };
+
+        // Cancel button logic
+        cancelBtn.onclick = () => {
+            logoutModal.style.display = "none";
+        };
+
+        // Actual logout logic
+        confirmBtn.onclick = () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            }).catch(err => console.error(err));
+        };
+
+        // Background click to close
+        window.onclick = (event) => {
+            if (event.target == logoutModal) {
+                logoutModal.style.display = "none";
+            }
+        };
+    }
+});
 
 // ===== Submit Complaint =====
 document.getElementById('complaintForm')?.addEventListener('submit', e => {
@@ -166,51 +202,153 @@ function loadUserSubmittedComplaints(){
 }
 
 // ===== Load Notifications =====
-function loadNotifications(userId){
+// function loadNotifications(userId){
+//     const list = document.getElementById("notificationsList");
+//     const badge = document.getElementById("notificationCount");
+// //     onValue(ref(db, `notifications/${userId}`), snapshot => {
+// //         if(!list) return;
+// //         list.innerHTML = '';
+// //         let count = 0;
+// //         snapshot.forEach(child => {
+// //             const n = child.val();
+// //             if(n && n.title && n.message){
+// //                 count++;
+// //                 const li = document.createElement('li');
+// //                 li.innerHTML = `<strong>${n.title}</strong><br><small>${n.message}</small>`;
+// //                 list.appendChild(li);
+// //             }
+// //         });
+// //         badge.textContent = count ? count : '';
+// //     });
+//    onValue(ref(db, `notifications/${userId}`), snapshot => {
+//     if(!list) return;
+//     list.innerHTML = '';
+//     let count = 0;
+
+//     snapshot.forEach(child => {
+//         const n = child.val();
+//         if(n && n.title && n.message){
+//             count++;
+//             const li = document.createElement('li');
+//             li.innerHTML = `<strong>${n.title}</strong><br><small>${n.message}</small>`;
+//             list.appendChild(li);
+//         }
+//     });
+
+//     // Badge ko update karne ka behtar tareeqa
+//     if (badge) {
+//         if (count > 0) {
+//             badge.textContent = count;
+//             badge.style.display = 'inline-block'; // Show badge
+//         } else {
+//             badge.textContent = '';
+//             badge.style.display = 'none'; // Hide badge if count is 0
+//         }
+//     }
+// });
+// }
+
+
+// if (badge) {
+//     badge.textContent = unreadCount; // Zero bhi show hoga
+//     if (unreadCount > 0) {
+//         badge.style.visibility = 'visible'; 
+//     } else {
+//         badge.style.visibility = 'hidden'; // Ya 'none' agar space bhi khatam karni ho
+//     }
+// }
+
+
+
+// ====New Notification code====
+
+// ===== Load Notifications with Status Colors =====
+function loadNotifications(userId) {
     const list = document.getElementById("notificationsList");
     const badge = document.getElementById("notificationCount");
-//     onValue(ref(db, `notifications/${userId}`), snapshot => {
-//         if(!list) return;
-//         list.innerHTML = '';
-//         let count = 0;
-//         snapshot.forEach(child => {
-//             const n = child.val();
-//             if(n && n.title && n.message){
-//                 count++;
-//                 const li = document.createElement('li');
-//                 li.innerHTML = `<strong>${n.title}</strong><br><small>${n.message}</small>`;
-//                 list.appendChild(li);
-//             }
-//         });
-//         badge.textContent = count ? count : '';
-//     });
-   onValue(ref(db, `notifications/${userId}`), snapshot => {
-    if(!list) return;
-    list.innerHTML = '';
-    let count = 0;
 
-    snapshot.forEach(child => {
-        const n = child.val();
-        if(n && n.title && n.message){
-            count++;
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${n.title}</strong><br><small>${n.message}</small>`;
-            list.appendChild(li);
+    onValue(ref(db, `notifications/${userId}`), snapshot => {
+        if (!list) return;
+        list.innerHTML = '';
+        let unreadCount = 0;
+
+        snapshot.forEach(child => {
+            const n = child.val();
+            if (n && n.title && n.message) {
+                // Check if notification is unread
+                const isRead = n.isRead === true; 
+                if (!isRead) unreadCount++;
+
+                // Determine color class based on status in title
+                let statusClass = 'status-default';
+                const titleLower = n.title.toLowerCase();
+                
+                if (titleLower.includes('resolved')) {
+                    statusClass = 'status-resolved'; // Greenish
+                } else if (titleLower.includes('assigned')) {
+                    statusClass = 'status-assigned'; // Bluish
+                } else if (titleLower.includes('submitted')) {
+                    statusClass = 'status-submitted'; // Orangish
+                }
+
+                const li = document.createElement('li');
+                // Hum status aur read/unread dono classes add kar rahe hain
+                li.className = `notification-card ${statusClass} ${isRead ? 'read' : 'unread'}`;
+                li.innerHTML = `
+                    <div class="notif-header">
+                        <strong>${n.title}</strong>
+                        ${!isRead ? '<span class="new-dot">●</span>' : ''}
+                    </div>
+                    <small>${n.message}</small>
+                `;
+                list.appendChild(li);
+            }
+        });
+
+        // Badge update logic
+        if (badge) {
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none'; // Count zero hote hi gaib
+            }
         }
     });
-
-    // Badge ko update karne ka behtar tareeqa
-    if (badge) {
-        if (count > 0) {
-            badge.textContent = count;
-            badge.style.display = 'inline-block'; // Show badge
-        } else {
-            badge.textContent = '';
-            badge.style.display = 'none'; // Hide badge if count is 0
-        }
-    }
-});
 }
+
+// ===== Function to Clear Badge (Mark as Read) =====
+window.clearNotificationBadge = function(userId) {
+    if(!userId) return;
+    const notificationsRef = ref(db, `notifications/${userId}`);
+    
+    // Pehle data mangwayen phir sab ko read mark karein
+    onValue(notificationsRef, (snapshot) => {
+        if (snapshot.exists()) {
+            const updates = {};
+            snapshot.forEach((child) => {
+                // Sirf unko update karein jo abhi tak false hain
+                if (child.val().isRead !== true) {
+                    updates[`notifications/${userId}/${child.key}/isRead`] = true;
+                }
+            });
+            if (Object.keys(updates).length > 0) {
+                update(ref(db), updates);
+            }
+        }
+    }, { onlyOnce: true });
+};
+
+// Sidebar click event update karein taake function trigger ho
+document.getElementById('notificationsLink')?.addEventListener('click', e => { 
+    e.preventDefault(); 
+    const userId = auth.currentUser.uid;
+    showSection('notifications'); 
+    loadNotifications(userId); 
+    clearNotificationBadge(userId); // Badge reset logic
+});
+
+
 
 // ===== Load User Profile =====
 function loadUserProfile(){

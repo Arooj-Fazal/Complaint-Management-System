@@ -523,11 +523,46 @@ window.markFeedbackRead = function (sid, fid) {
 };
 
 // ================= LOGOUT =================
-document.getElementById("logoutBtn")?.addEventListener("click", () => {
-    signOut(auth).then(() => {
-        alert("Logged out ");
-        window.location.href = "login.html";
-    });
+// document.getElementById("logoutBtn")?.addEventListener("click", () => {
+//     signOut(auth).then(() => {
+//         alert("Logged out ");
+//         window.location.href = "login.html";
+//     });
+// });
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Modal elements
+    const logoutBtn = document.getElementById("logoutBtn");
+    const logoutModal = document.getElementById("logoutModal");
+    const confirmBtn = document.getElementById("confirmLogoutBtn");
+    const cancelBtn = document.getElementById("cancelLogoutBtn");
+
+    if (logoutBtn && logoutModal) {
+        // Sidebar link par click
+        logoutBtn.onclick = (e) => {
+            e.preventDefault();
+            logoutModal.style.display = "flex"; 
+        };
+
+        // Cancel button logic
+        cancelBtn.onclick = () => {
+            logoutModal.style.display = "none";
+        };
+
+        // Actual logout logic
+        confirmBtn.onclick = () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            }).catch(err => console.error(err));
+        };
+
+        // Background click to close
+        window.onclick = (event) => {
+            if (event.target == logoutModal) {
+                logoutModal.style.display = "none";
+            }
+        };
+    }
 });
 
 

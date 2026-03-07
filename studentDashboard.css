@@ -1367,3 +1367,102 @@ form input[type="file"]:focus {
         left: 0 !important; /* Click par bahar aayega */
     }
 }
+/* Sidebar Badge Styling */
+.badge {
+    background-color: #ff4757;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+/* Notification List Styling */
+#notificationsList {
+    padding: 0;
+    list-style: none;
+}
+
+.notification-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-left: 6px solid #ccc; /* Default Border */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Status Specific Colors */
+.status-resolved { 
+    border-left-color: #2ed573 !important;
+     border-right-color: #2ed573 !important;
+    background-color: #f0fff4; 
+}
+.status-assigned { 
+    border-left-color: #1e90ff !important; /* Blue */
+     border-right-color: #1e90ff !important; /* Blue */
+    background-color: #f0f7ff;
+}
+.status-submitted { 
+    border-left-color: #ffa502 !important; /* Orange */
+    border-right-color: #ffa502 !important; /* Orange */
+    background-color: #fffaf0;
+}
+
+.new-dot {
+    color: #1e90ff;
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+
+/* Custom Modal Styling */
+.custom-modal {
+    display: none; 
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px); /* Blurred Background */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon {
+    font-size: 50px;
+    color: #008080; /* Student dashboard theme matching color */
+    margin-bottom: 15px;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.modal-footer button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-confirm { background: #008080; color: white; }
+.btn-cancel { background: #f1f2f6; color: #333; }
