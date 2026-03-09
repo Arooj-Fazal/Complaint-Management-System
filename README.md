@@ -13,6 +13,12 @@ Check out the live project here: [https://arooj-fazal.github.io/Complaint-Manage
 * **Secure Access**: Integrated login and registration system for different roles.
 ![Registration Screen](img/registration.PNG)
 ![Login Screen](img/login.PNG)
+![Admin Screen](img/Admin.PNG)
+![Teacher Screen](img/teacher.PNG)
+![Student Screen](img/student.PNG)
+
+
+
 
 ## 🛠️ Built With
 * **Frontend**: HTML5, CSS3, JavaScript
