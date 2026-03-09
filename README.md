@@ -11,6 +11,8 @@ Check out the live project here: [https://arooj-fazal.github.io/Complaint-Manage
 * **Real-time Interaction**: Built with Firebase to ensure data is updated instantly.
 * **Modern UI/UX**: Clean and professional design using HTML and CSS.
 * **Secure Access**: Integrated login and registration system for different roles.
+![Registration Screen](img/registration.PNG)
+![Login Screen](img/login.PNG)
 
 ## 🛠️ Built With
 * **Frontend**: HTML5, CSS3, JavaScript
