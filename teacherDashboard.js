@@ -332,60 +332,12 @@ document.addEventListener("DOMContentLoaded", () => {
         menuToggle.onclick = () => sidebar.classList.toggle("active");
     }
 
-// const logoutBtn = document.getElementById("logoutBtn");
-// if (logoutBtn) {
-//     logoutBtn.onclick = () => {
-//         // Confirmation Pop-up
-//         const confirmLogout = confirm("Are you sure you want to logout??");
-
-//         if (confirmLogout) {
-//             // Agar user 'OK' click kare to logout kar do
-//             signOut(auth).then(() => {
-//                 window.location.href = "login.html";
-//             }).catch((error) => {
-//                 console.error("Logout Error:", error);
-//             });
-//         } else {
-//             // Agar user 'Cancel' click kare to kuch nahi hoga
-//             // User dashboard par hi rahega
-//             console.log("Logout cancelled");
-//         }
-//     };
-// }
-
-const logoutBtn = document.getElementById("logoutBtn");
-const logoutModal = document.getElementById("logoutModal");
-const confirmBtn = document.getElementById("confirmLogoutBtn");
-const cancelBtn = document.getElementById("cancelLogoutBtn");
-
-if (logoutBtn && logoutModal) {
-    // 1. Sidebar logout par click karne se modal show hoga
-    logoutBtn.onclick = (e) => {
-        e.preventDefault(); // Default redirect ya reload roknay ke liye
-        logoutModal.style.display = "flex"; // Modal show (Flex use karein center align ke liye)
-    };
-
-    // 2. 'Stay Here' (Cancel) button par modal hide hoga
-    cancelBtn.onclick = () => {
-        logoutModal.style.display = "none";
-    };
-
-    // 3. 'Yes, Logout' (OK) button par actual signout hoga
-    confirmBtn.onclick = () => {
-        signOut(auth).then(() => {
-            window.location.href = "login.html";
-        }).catch((error) => {
-            console.error("Logout Error:", error);
-            alert("Kuch masla hua, dobara koshish karein.");
-        });
-    };
-
-    // 4. Agar user modal ke bahar (background par) click kare to bhi modal band ho jaye
-    window.onclick = (event) => {
-        if (event.target == logoutModal) {
-            logoutModal.style.display = "none";
-        }
-    };
-}
-
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+        logoutBtn.onclick = () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            });
+        };
+    }
 });
