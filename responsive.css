@@ -1,0 +1,282 @@
+/* ============================================================
+   RESPONSIVE FIX — HOD DASHBOARD
+   Add this at the BOTTOM of hodDashboard.css
+   ============================================================ */
+
+/* ── Desktop baseline (already works fine) ─────────────────── */
+@media (min-width: 769px) {
+
+   #welcome-banner {
+    min-height: 120px !important;
+    padding: 16px !important;
+  }
+
+  .banner-text {
+    padding: 14px 18px !important;
+  }
+
+  .banner-text h1 {
+    font-size: 1.3rem !important;
+    margin-bottom: 6px !important;
+  }
+
+  .banner-text p {
+    font-size: 0.82rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .status-indicator {
+    font-size: 0.78rem !important;
+    padding: 4px 10px !important;
+  }
+
+
+  .hamburger-btn,
+  .close-btn,
+  #sidebar-overlay {
+    display: none !important;
+  }
+
+  #sidebar {
+    position: relative;
+    left: 0 !important;
+    width: 260px;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Mobile layout ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* 1. Show hamburger in header */
+  .hamburger-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    margin-right: 12px;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  /* 2. Fix header layout so hamburger + title sit in a row */
+  #main-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 10px;
+  }
+
+  .header-left {
+    flex: 1;
+  }
+
+  .header-left h1 {
+    font-size: 1.1rem;
+  }
+
+  .header-right .welcome-text {
+    font-size: 0.8rem;
+  }
+
+  /* 3. Sidebar: slide off-screen by default */
+  #sidebar {
+    position: fixed !important;
+    top: 0;
+    left: -270px !important;   /* hidden off-screen */
+    width: 260px;
+    height: 100vh;
+    z-index: 1002;
+    background: #ffffff;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    padding-top: 55px;         /* space for the close button */
+  }
+
+  /* 4. When .active is added via JS → slide in */
+  #sidebar.active {
+    left: 0 !important;
+  }
+
+  /* 5. Show close button inside sidebar */
+  .close-btn {
+    display: flex !important;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #115562;
+    cursor: pointer;
+    background: #f0f9fb;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+  }
+
+  /* 6. Dark overlay behind the sidebar */
+  #sidebar-overlay {
+    display: none;              /* hidden by default */
+    position: fixed !important;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    backdrop-filter: blur(2px);
+  }
+
+  #sidebar-overlay.active {
+    display: block !important;
+  }
+
+  /* 7. Main content takes full width */
+  #dashboard-container {
+    flex-direction: column;
+  }
+
+  #content {
+    width: 100%;
+    padding: 16px;
+    overflow-x: hidden;
+  }
+
+  /* 8. Stats grid → 2 columns on mobile */
+  #stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  #stats-grid .card {
+    padding: 16px 12px;
+  }
+
+  #stats-grid .card h3 {
+    font-size: 1.8rem;
+  }
+
+  /* 9. Faculty stats → 2 columns */
+  .faculty-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* 10. Welcome banner compact */
+  #welcome-banner {
+    padding: 20px 16px;
+    min-height: 140px;
+  }
+
+  .banner-text h1 {
+    font-size: 1.4rem;
+  }
+
+  .banner-text p {
+    font-size: 0.9rem;
+  }
+
+  /* 11. Tables: allow horizontal scroll */
+  .escalation-table-wrapper,
+  .faculty-table-wrapper,
+  #logs .escalation-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #escalation-table,
+  #faculty-table,
+  #logs-table,
+  #complaints-table {
+    min-width: 600px;
+  }
+
+  /* 12. Section title bar */
+  .section-title-bar {
+    padding: 14px 16px;
+  }
+
+  .section-title-bar h2 {
+    font-size: 1.1rem;
+  }
+
+  /* 13. Review & Teacher modals full-width on mobile */
+  .review-modal-content,
+  .teacher-detail-modal,
+  .modal-content {
+    width: 95vw;
+    max-width: 95vw;
+    padding: 18px;
+  }
+
+  /* 14. Faculty controls stack vertically */
+  .faculty-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .faculty-search {
+    max-width: 100%;
+  }
+
+  .faculty-filters {
+    flex-wrap: wrap;
+  }
+
+  .faculty-filters select {
+    flex: 1;
+    min-width: 130px;
+  }
+
+  /* 15. Teacher modal stats 2-col */
+  .teacher-modal-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 16. Filter bar wraps neatly */
+  .filter-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 14px;
+  }
+
+  /* 17. Footer doesn't overlap content awkwardly */
+  body {
+    padding-bottom: 60px;
+  }
+
+  #main-footer {
+    font-size: 12px;
+    padding: 10px 0;
+  }
+}
+
+/* ── Extra small screens (≤ 480px) ─────────────────────────── */
+@media (max-width: 480px) {
+  #stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .faculty-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fac-card-info h3 {
+    font-size: 1.3rem;
+  }
+
+  .banner-text h1 {
+    font-size: 1.2rem;
+  }
+
+  #main-header h1 {
+    font-size: 1rem;
+  }
+
+  .header-right .welcome-text {
+    display: none; /* too cramped on very small screens */
+  }
+}

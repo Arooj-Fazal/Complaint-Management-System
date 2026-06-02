@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vice Chancellor Dashboard – Redressal Portal</title>
+    <link rel="stylesheet" href="vcDashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script type="module" src="vcDashboard.js"></script>
+     <script type="module" src="firebase-vc.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- jsPDF (PDF download) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- SheetJS (Excel download) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <style>
+        .dashboard-section { display: none; }
+        .dashboard-section.active-section { display: block; }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══ TOP HEADER ══ -->
+    <header class="top-header">
+        <div class="header-left">
+            <div class="logo-box">
+                <span class="logo-text">Redressal <span class="logo-accent">Portal</span></span>
+            </div>
+            <div class="portal-title">Vice Chancellor dashboard</div>
+        </div>
+        <div class="header-right">
+            <div class="notif-bell">
+                <i class="fa-solid fa-bell"></i>
+                <span class="notif-badge">4</span>
+            </div>
+            <div class="user-chip">
+                <i class="fa-solid fa-circle-user"></i>
+                <span>Prof. Dr. Zulfiqar Ali</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ══ LAYOUT ══ -->
+    <div class="layout">
+
+        <!-- ── SIDEBAR ── -->
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+
+                <a href="#" class="nav-item active" data-section="overview">
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <span>Overview</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="analytics">
+                    <i class="fa-solid fa-chart-column"></i>
+                    <span>Analytics &amp; Reports</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="department">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <span>Escalated Complaints</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="archive"    onclick="showArchiveSection()">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span>Archive &amp; History</span>
+                </a>
+
+                <div class="nav-divider"></div>
+
+                <a href="#" class="nav-item" data-section="settings">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+                <a href="#" class="nav-item nav-logout" id="logoutBtn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+
+            </nav>
+        </aside>
+
+        <!-- ── MAIN CONTENT ── -->
+        <main class="main-content">
+
+            <div class="breadcrumb">
+                <i class="fa-solid fa-house-chimney"></i>
+                <span>Dashboard / Overview</span>
+            </div>
+
+            <!-- ══ SECTION 1: OVERVIEW ══ -->
+            <section id="section-overview" class="dashboard-section active-section">
+
+                <!-- STAT CARDS -->
+                <section class="stat-cards">
+                    <div class="stat-card card-total">
+                        <div class="stat-label">Total Complaints</div>
+                        <div class="stat-value">1,240</div>
+                        <div class="stat-tag tag-teal">
+                            <span class="dot dot-teal"></span> Dark Teal Accent
+                        </div>
+                    </div>
+                    <div class="stat-card card-resolved">
+                        <div class="stat-label">Resolved Complaints</div>
+                        <div class="stat-value">980</div>
+                        <div class="stat-tag tag-green">
+                            <span class="dot dot-green"></span> Green Subtle Tint
+                        </div>
+                    </div>
+                    <div class="stat-card card-inprogress">
+                        <div class="stat-label">In-Progress Complaints</div>
+                        <div class="stat-value">260</div>
+                        <div class="stat-tag tag-orange">
+                            <span class="dot dot-orange"></span> Orange Subtle Tint
+                        </div>
+                    </div>
+                    <div class="stat-card card-pending">
+                        <div class="stat-label">Pending &gt; 2 Days</div>
+                        <div class="stat-value">18</div>
+                        <div class="stat-tag tag-red">
+                            <span class="dot dot-red"></span> Red Alert
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ESCALATED TABLE -->
+                <section class="panel panel-alert" id="panel-alert">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-triangle-exclamation icon-warn"></i>
+                        <span>Action Required: Escalated &amp; Pending &gt; 2 Days )</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Subject</th>
+                                    <th>Cateogry </th>
+                                    <th>Priority</th>
+                                    <th>Days Pending</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="id-cell">#102</td>
+                                    <td>Fee Installment</td>
+                                    <td>Comp Science</td>
+                                    <td><span class="badge badge-high">HIGH</span></td>
+                                    <td>3 Days</td>
+                                    <td>
+                                        <button class="btn-action">Take Action</button>
+                                        <button class="btn-inquiry">Inquiry</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="id-cell">#105</td>
+                                    <td>Paper Rechecking</td>
+                                    <td>Business Administration</td>
+                                    <td><span class="badge badge-critical">CRITICAL</span></td>
+                                    <td>4 Days</td>
+                                    <td>
+                                        <button class="btn-action">Take Action</button>
+                                        <button class="btn-inquiry">Inquiry</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="id-cell">#112</td>
+                                    <td>Bus Route Issue</td>
+                                    <td>Agriculture</td>
+                                    <td><span class="badge badge-high">HIGH</span></td>
+                                    <td>2 Days</td>
+                                    <td>
+                                        <button class="btn-action">Take Action</button>
+                                        <button class="btn-inquiry">Inquiry</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="id-cell">#118</td>
+                                    <td>Hostel Maintenance</td>
+                                    <td>Zoology</td>
+                                    <td><span class="badge badge-medium">MEDIUM</span></td>
+                                    <td>2 Days</td>
+                                    <td>
+                                        <button class="btn-action">Take Action</button>
+                                        <button class="btn-inquiry">Inquiry</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- DEPARTMENT RESOLUTION RATES -->
+                <section class="panel panel-dept" id="panel-alert">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-triangle-exclamation icon-warn-yellow"></i>
+                        <span>Department Resolution Rates &amp; Red Flags</span>
+                    </div>
+                    <div class="dept-list">
+                        <div class="dept-row">
+                            <span class="status-dot dot-red"></span>
+                            <div class="dept-info">
+                                <span class="dept-name">Agriculture Dept</span>
+                                <span class="dept-rate">Resolution Rate: 42%</span>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" style="width:42%; background:#ef4444;"></div>
+                            </div>
+                            <span class="dept-flag flag-red">★ CRITICAL: Very slow response time. Red Flagged</span>
+                        </div>
+                        <div class="dept-row">
+                            <span class="status-dot dot-orange"></span>
+                            <div class="dept-info">
+                                <span class="dept-name">Zoology Dept</span>
+                                <span class="dept-rate">Resolution Rate: 55%</span>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" style="width:55%; background:#f97316;"></div>
+                            </div>
+                            <span class="dept-flag flag-orange">⚠ WARNING: Approaching minimum threshold</span>
+                        </div>
+                        <div class="dept-row">
+                            <span class="status-dot dot-green"></span>
+                            <div class="dept-info">
+                                <span class="dept-name">Computer Science</span>
+                                <span class="dept-rate">Resolution Rate: 95%</span>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" style="width:95%; background:#22c55e;"></div>
+                            </div>
+                            <span class="dept-flag flag-green">✔ EXCELLENT: Operating within optimal timeline</span>
+                        </div>
+                        <div class="dept-row">
+                            <span class="status-dot dot-orange"></span>
+                            <div class="dept-info">
+                                <span class="dept-name">Business Administration</span>
+                                <span class="dept-rate">Resolution Rate: 61%</span>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" style="width:61%; background:#f97316;"></div>
+                            </div>
+                            <span class="dept-flag flag-orange">⚠ WARNING: Approaching minimum threshold</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BOTTOM ROW -->
+                <div class="bottom-row">
+
+                    <section class="panel panel-activity" id="panel-alert">
+                        <div class="panel-header">
+                            <i class="fa-solid fa-clock-rotate-left icon-info"></i>
+                            <span>Recent Activity</span>
+                        </div>
+                        <ul class="activity-list">
+                            <li class="activity-item">
+                                <span class="act-dot dot-green"></span>
+                                <div>
+                                    <p class="act-title">Complaint #098 Resolved</p>
+                                    <p class="act-meta">Comp Science · 10 min ago</p>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <span class="act-dot dot-orange"></span>
+                                <div>
+                                    <p class="act-title">Complaint #105 Escalated</p>
+                                    <p class="act-meta">Business Admin · 45 min ago</p>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <span class="act-dot dot-red"></span>
+                                <div>
+                                    <p class="act-title">New Appeal: #112 Submitted</p>
+                                    <p class="act-meta">Agriculture · 1 hr ago</p>
+                                </div>
+                            </li>
+                            <li class="activity-item">
+                                <span class="act-dot dot-teal"></span>
+                                <div>
+                                    <p class="act-title">Report Generated – May 2025</p>
+                                    <p class="act-meta">System · 2 hrs ago</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="panel panel-summary" id="panel-alert">
+                        <div class="panel-header">
+                            <i class="fa-solid fa-chart-pie icon-info"></i>
+                            <span>Quick Summary</span>
+                        </div>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <span class="sum-label">Avg Resolution Time</span>
+                                <span class="sum-val sum-avg-resolution">3.2 Days</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="sum-label">Appeals This Month</span>
+                                <span class="sum-val sum-appeals-month">14</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="sum-label">Departments Monitored</span>
+                                <span class="sum-val sum-depts-monitored">12</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="sum-label">Critical Red Flags</span>
+                                <span class="sum-val sum-red sum-critical-flags">3</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="sum-label">Satisfaction Rate</span>
+                                <span class="sum-val sum-green sum-satisfaction">78%</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="sum-label">Open Since &gt; 5 Days</span>
+                                <span class="sum-val sum-red sum-open-5days">5</span>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+            </section>
+            <!-- ══ OVERVIEW END ══ -->
+
+            <!-- ══ SECTION 2: ANALYTICS ══ -->
+            <section id="section-analytics" class="dashboard-section">
+                <p style="color:rgba(0,0,0,0.4); padding:2rem;">Analytics &amp; Reports </p>
+                <!-- ══════════════════════════════════════════════════════
+     PASTE THIS INSIDE:  <section id="section-analytics" class="dashboard-section">
+     ══════════════════════════════════════════════════════ -->
+
+<!-- Analytics Header -->
+<div class="analytics-header">
+    <div class="analytics-title-block">
+        <h2 class="analytics-title">Analytics <span class="analytics-accent">&amp; Reports</span></h2>
+        <p class="analytics-subtitle">Visual overview of complaint data across departments and categories</p>
+    </div>
+    <div class="analytics-controls">
+        <select class="filter-select" id="analyticsFilter">
+            <option value="weekly">This Week</option>
+            <option value="monthly" selected>This Month</option>
+            <option value="yearly">This Year</option>
+        </select>
+        <button class="btn-download-pdf" id="downloadPDF">
+            <i class="fa-solid fa-file-pdf"></i> Download PDF
+        </button>
+        <button class="btn-download-excel" id="downloadExcel">
+            <i class="fa-solid fa-file-excel"></i> Download Excel
+        </button>
+    </div>
+</div>
+
+<!-- Quick Stats Row -->
+<div class="analytics-stats-row">
+    <div class="a-stat-card">
+        <i class="fa-solid fa-chart-bar a-stat-icon icon-teal"></i>
+        <div>
+            <div class="a-stat-val" id="a-total">—</div>
+            <div class="a-stat-label">Total Complaints</div>
+        </div>
+    </div>
+    <div class="a-stat-card">
+        <i class="fa-solid fa-circle-check a-stat-icon icon-green"></i>
+        <div>
+            <div class="a-stat-val" id="a-resolved">—</div>
+            <div class="a-stat-label">Resolved</div>
+        </div>
+    </div>
+    <div class="a-stat-card">
+        <i class="fa-solid fa-hourglass-half a-stat-icon icon-orange"></i>
+        <div>
+            <div class="a-stat-val" id="a-inprogress">—</div>
+            <div class="a-stat-label">In Progress</div>
+        </div>
+    </div>
+    <div class="a-stat-card">
+        <i class="fa-solid fa-triangle-exclamation a-stat-icon icon-red"></i>
+        <div>
+            <div class="a-stat-val" id="a-escalated">—</div>
+            <div class="a-stat-label">Escalated</div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="charts-row">
+
+    <!-- Bar Chart: Department wise -->
+    <div class="chart-panel">
+        <div class="chart-panel-header">
+            <i class="fa-solid fa-chart-column icon-teal"></i>
+            <span>Department-wise Complaint Overview</span>
+        </div>
+        <div class="chart-legend" id="barLegend"></div>
+        <div class="bar-chart-container">
+            <canvas id="deptBarChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Pie Chart: Category wise -->
+    <div class="chart-panel">
+        <div class="chart-panel-header">
+            <i class="fa-solid fa-chart-pie icon-teal"></i>
+            <span>Category-wise Breakdown</span>
+        </div>
+        <div class="pie-chart-container">
+            <canvas id="categoryPieChart"></canvas>
+        </div>
+        <div class="pie-legend" id="pieLegend"></div>
+    </div>
+
+</div>
+
+<!-- Resolution Rate Timeline -->
+<div class="chart-panel chart-panel-full">
+    <div class="chart-panel-header">
+        <i class="fa-solid fa-chart-line icon-teal"></i>
+        <span>Monthly Complaint Trend</span>
+    </div>
+    <div class="line-chart-container">
+        <canvas id="trendLineChart"></canvas>
+    </div>
+</div>
+
+<!-- Department Table Summary -->
+<div class="chart-panel chart-panel-full">
+    <div class="chart-panel-header">
+        <i class="fa-solid fa-table icon-teal"></i>
+        <span>Department Summary Table</span>
+    </div>
+    <div class="table-wrapper">
+        <table class="data-table analytics-table">
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Total</th>
+                    <th>Resolved</th>
+                    <th>In Progress</th>
+                    <th>Escalated</th>
+                    <th>Resolution Rate</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="analyticsTableBody">
+                <tr><td colspan="7" style="text-align:center;color:var(--muted);">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+            </section>
+
+            <!-- ══ SECTION 3: Escalated Complaints ══ -->
+            <section id="section-department" class="dashboard-section">
+                
+
+             <!-- Page Header -->
+
+              <div class="esc-page-header">
+        <div class="esc-header-left">
+            <div class="esc-header-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div>
+                <h1 class="esc-page-title">Escalated Complaints</h1>
+                <p class="esc-page-sub">
+                    High priority complaints not resolved within 1 minute &mdash; require immediate VC attention
+                </p>
+            </div>
+        </div>
+        <div class="esc-header-right">
+            <span class="esc-live-badge">
+                <span class="esc-live-dot"></span> Live Feed
+            </span>
+            <span class="esc-total-badge" id="esc-active-count">0 Active</span>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="esc-filter-bar">
+        <div class="esc-search-wrap">
+            <i class="fa-solid fa-magnifying-glass esc-search-icon"></i>
+            <input
+                class="esc-search-input"
+                id="escSearchInput"
+                type="text"
+                placeholder="Search by ID, subject, department..."
+                oninput="filterEscTable()"
+            />
+        </div>
+
+        <div class="esc-filter-group">
+            <select class="esc-select" id="escDeptFilter" onchange="filterEscTable()">
+               <option value="">All Departments</option>
+    <option value="Computer Science">Computer Science</option>
+    <option value="Agriculture">Agriculture</option>
+    <option value="Business Administration">Business Administration</option>
+    <option value="Zoology">Zoology</option>
+    <option value="Biochemistry">Biochemistry</option>
+            </select>
+        </div>
+
+        <div class="esc-filter-group">
+            <select class="esc-select" id="escPrioFilter" onchange="filterEscTable()">
+                <option value="">All Priorities</option>
+                <option value="high">High</option>
+                <option value="critical">Low</option>
+                <option value="medium">Medium</option>
+            </select>
+        </div>
+
+        <button class="esc-reset-btn" onclick="resetEscFilters()">
+            <i class="fa-solid fa-rotate-left"></i> Reset
+        </button>
+    </div>
+
+    <!-- Main Table Panel -->
+    <div class="esc-panel">
+
+        <div class="esc-panel-header">
+            <div class="esc-panel-title">
+                <i class="fa-solid fa-circle-exclamation" style="color:var(--clr-red);"></i>
+                All Escalated High Priority Complaints
+            </div>
+            <div class="esc-panel-actions">
+                <button class="esc-export-btn" onclick="exportEscCSV()">
+                    <i class="fa-solid fa-file-csv"></i> Export CSV
+                </button>
+                <button class="esc-print-btn" onclick="window.print()">
+                    <i class="fa-solid fa-print"></i> Print
+                </button>
+            </div>
+        </div>
+
+        <div class="esc-table-wrap">
+            <table class="esc-table">
+                <thead>
+                    <tr>
+                        <th>Complaint ID</th>
+                        <th>Subject</th>
+                        <th>Department</th>
+                        <th>Submitted By</th>
+                        <th>Filed Date</th>
+                        <th>Pending Since</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="escTableBody">
+                    <tr class="esc-loading-row">
+                        <td colspan="9">
+                            <i class="fa-solid fa-rotate fa-spin"></i>
+                            Loading escalated complaints...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- No results -->
+            <div id="escNoResults" class="esc-no-results" style="display:none;">
+                <i class="fa-solid fa-circle-check esc-no-icon"></i>
+                <p>No escalated complaints found</p>
+                <span>All high priority complaints have been resolved or none match your filters.</span>
+            </div>
+        </div>
+
+        <!-- Footer count -->
+        <div class="esc-table-footer">
+            Showing <strong id="escRowCount">0</strong> records
+        </div>
+
+    </div>
+    <!-- /esc-panel -->
+
+</section>
+
+<!-- ══ ESCALATED — ACTION MODAL ══ -->
+<div class="esc-modal-overlay" id="escModalOverlay">
+    <div class="esc-modal">
+
+        <div class="esc-modal-header">
+            <h3>
+                <i class="fa-solid fa-file-lines" style="color:var(--clr-accent);margin-right:8px;"></i>
+                Complaint Detail &amp; VC Action
+            </h3>
+            <div class="esc-modal-close" onclick="closeEscModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+
+        <div class="esc-modal-body">
+
+            <!-- Detail Grid -->
+            <div class="esc-detail-grid">
+                <div class="esc-detail-item">
+                    <span class="esc-d-label">Complaint ID</span>
+                    <span class="esc-d-val" id="emd-id">—</span>
+                </div>
+                <div class="esc-detail-item">
+                    <span class="esc-d-label">Priority</span>
+                    <span class="esc-d-val" id="emd-priority">—</span>
+                </div>
+                <div class="esc-detail-item">
+                    <span class="esc-d-label">Department</span>
+                    <span class="esc-d-val" id="emd-dept">—</span>
+                </div>
+                <div class="esc-detail-item">
+                    <span class="esc-d-label">Submitted By</span>
+                    <span class="esc-d-val" id="emd-by">—</span>
+                </div>
+                <div class="esc-detail-item">
+                    <span class="esc-d-label">Filed Date</span>
+                    <span class="esc-d-val" id="emd-filed">—</span>
+                </div>
+                <div class="esc-detail-item">
+                    <span class="esc-d-label">Pending Since</span>
+                    <span class="esc-d-val" id="emd-pending">—</span>
+                </div>
+                <div class="esc-detail-item" style="grid-column: 1 / -1;">
+                    <span class="esc-d-label">Subject</span>
+                    <span class="esc-d-val" id="emd-subject">—</span>
+                </div>
+            </div>
+
+            <!-- VC Directive -->
+            <label class="esc-directive-label">
+                <i class="fa-solid fa-pen-to-square" style="margin-right:5px;color:var(--clr-accent);"></i>
+                Issue VC Directive / Remarks
+            </label>
+            <textarea
+                class="esc-directive-input"
+                id="escDirectiveText"
+                placeholder="Write your official directive or remarks here...">
+            </textarea>
+
+        </div>
+
+        <div class="esc-modal-footer">
+            <button class="esc-btn-directive" onclick="saveEscDirective()">
+                <i class="fa-solid fa-paper-plane"></i> Send Directive
+            </button>
+            <button class="esc-btn-resolve" onclick="markEscResolved()">
+                <i class="fa-solid fa-circle-check"></i> Mark Resolved
+            </button>
+            <button class="esc-btn-cancel" onclick="closeEscModal()">
+                Cancel
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+            </section>
+
+            <!-- ══ SECTION 4: ARCHIVE ══ -->
+            <section id="section-archive" class="dashboard-section">
+                <p style="color:rgba(0,0,0,0.4); padding:2rem;">Archive &amp; History </p>
+
+
+             
+  <!-- CONTENT -->
+  <div class="content">
+ 
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="page-icon">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+        </svg>
+      </div>
+      <div>
+        <h1 style="color: #115562;">Archive &amp; History</h1>
+        <p>Complete record of all past and closed complaints across the university</p>
+      </div>
+    </div>
+ 
+    <!-- ── FILTER BAR ── -->
+    <div class="filter-bar">
+ 
+      <!-- Search -->
+      <div class="filter-group search-wrap">
+        <div class="filter-label">Search</div>
+        <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input
+          class="filter-input"
+          id="searchInput"
+          type="text"
+          placeholder="Search by ID, subject, student name…"
+          oninput="applyFilters()"
+        >
+      </div>
+ 
+      <!-- Department -->
+      <div class="filter-group">
+        <div class="filter-label">Category</div>
+        <select class="filter-select" id="deptFilter" onchange="applyFilters()">
+          <option value="">All Category</option>
+          <option>Hostel</option>
+          <option>Academic</option>
+          <option>Finance</option>
+          <option>IT</option>
+          <option>Transport</option>
+          <option>Library</option>
+        </select>
+      </div>
+ 
+      <!-- Status -->
+      <div class="filter-group">
+        <div class="filter-label">Status</div>
+        <select class="filter-select" id="statusFilter" onchange="applyFilters()">
+          <option value="">All Statuses</option>
+          <option>In progress</option>
+          <option>Resolved</option>
+          <option>Escalated</option>
+          <!-- <option>Appealed</option> -->
+        </select>
+      </div>
+ 
+      <!-- Priority -->
+      <div class="filter-group">
+        <div class="filter-label">Priority</div>
+        <select class="filter-select" id="prioFilter" onchange="applyFilters()">
+          <option value="">All Priorities</option>
+          <option>High</option>
+          <option>Medium</option>
+          <option>Low</option>
+        </select>
+      </div>
+ 
+      <!-- Date From -->
+      <div class="filter-group">
+        <div class="filter-label">Date From</div>
+        <input class="filter-input" id="dateFrom" type="date" oninput="applyFilters()" style="min-width:140px">
+      </div>
+ 
+      <!-- Date To -->
+      <div class="filter-group">
+        <div class="filter-label">Date To</div>
+        <input class="filter-input" id="dateTo" type="date" oninput="applyFilters()" style="min-width:140px">
+      </div>
+ 
+      <!-- Buttons -->
+      <div class="filter-actions">
+        <button class="btn btn-ghost" onclick="resetFilters()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+          Reset
+        </button>
+        <button class="btn btn-teal" onclick="applyFilters()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+          </svg>
+          Apply Filters
+        </button>
+      </div>
+    </div>
+    <!-- /filter-bar -->
+ 
+    <!-- TABLE TOP ROW -->
+    <div class="table-toprow">
+      <div class="table-count">
+        Showing <strong id="rowCount">0</strong> archived records
+      </div>
+      <div class="export-btns">
+        <button class="btn btn-ghost btn-sm" onclick="exportCSV()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          Export CSV
+        </button>
+        <button class="btn btn-ghost btn-sm"  onclick="printTable()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+          </svg>
+          Print
+        </button>
+      </div>
+    </div>
+ 
+    <!-- COMPLAINTS TABLE -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-key="id"       onclick="sortTable('id')">ID <span class="sort-icon">↕</span></th>
+            <th data-key="subject"  onclick="sortTable('subject')">Subject <span class="sort-icon">↕</span></th>
+            <th data-key="dept"     onclick="sortTable('dept')">Category <span class="sort-icon">↕</span></th>
+            <th data-key="status"   onclick="sortTable('status')">Status <span class="sort-icon">↕</span></th>
+            <th data-key="priority" onclick="sortTable('priority')">Priority <span class="sort-icon">↕</span></th>
+            <th data-key="filed"    onclick="sortTable('filed')">Filed Date <span class="sort-icon">↕</span></th>
+            <th data-key="closed"   onclick="sortTable('closed')">Closed Date <span class="sort-icon">↕</span></th>
+            <!-- <th data-key="student"  onclick="sortTable('student')">Student <span class="sort-icon">↕</span></th> -->
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+ 
+      <!-- No results -->
+      <div id="noResults" class="no-results" style="display:none">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <p>No archived complaints match your filters.</p>
+      </div>
+ 
+      <!-- Pagination -->
+      <div class="pagination">
+        <div class="page-info" id="pageInfo">Page 1 of 1</div>
+        <div class="page-btns" id="pageBtns"></div>
+      </div>
+    </div>
+    <!-- /table-wrap -->
+ 
+  </div><!-- /content -->
+</div><!-- /main -->
+ 
+<!-- ══════════════════════════════════════════
+     DETAIL MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-header">
+      <h3 id="modalTitle">Complaint Detail</h3>
+      <div class="modal-close" onclick="closeModalDirect()">✕</div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+ 
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+  </svg>
+  <span id="toastMsg">Done!</span>
+</div>
+            </section>
+
+            <!-- ══ SECTION 5: SETTINGS ══ -->
+           <section id="section-settings" class="dashboard-section">
+    <div class="settings-portal-container">
+        <aside class="settings-sidebar">
+            <div class="settings-nav-header">
+                <i class="fas fa-cog"></i>  Settings
+            </div>
+            <div class="settings-nav-items">
+                <button class="s-nav-btn active" onclick="openSettingsTab(event, 'set-profile')">
+                    <i class="fas fa-user-circle"></i> Profile Info
+                </button>
+                <button class="s-nav-btn" onclick="openSettingsTab(event, 'set-security')">
+                    <i class="fas fa-lock"></i> Password & Security
+                </button>
+                <!-- <button class="s-nav-btn" onclick="openSettingsTab(event, 'set-rules')">
+                    <i class="fas fa-clock"></i> Escalation Rules
+                </button> -->
+                <!-- <button class="s-nav-btn" onclick="openSettingsTab(event, 'set-mapping')">
+                    <i class="fas fa-sitemap"></i> Dept Mapping
+                </button> -->
+            </div>
+        </aside>
+
+        <main class="settings-main-panel">
+            <div id="set-profile" class="tab-content active">
+                <div class="panel-header">
+                    <h2>Official Profile</h2>
+                    <p id="text">Manage VC account details and public identity</p>
+                </div>
+                
+                <div class="profile-upload-section">
+                    <div class="avatar-wrapper">
+                        <img src="https://via.placeholder.com/100" id="vc-profile-img">
+                        <label for="upload-input" class="edit-icon"><i class="fas fa-camera"></i></label>
+                        <input type="file" id="upload-input" hidden>
+                    </div>
+                    <div class="profile-info-text">
+                        <h3>Prof. Dr. Zulfiqar Ali</h3>
+                        <span>Vice Chancellor, UAF</span>
+                    </div>
+                </div>
+
+                <div class="settings-form-grid">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="vc-name" value="Prof. Dr. Zulfiqar Ali" placeholder="Enter Full Name">
+                    </div>
+                    <div class="input-group">
+                        <label>Official Email</label>
+                        <input type="email" id="vc-email" value="vc@uaf.edu.pk" placeholder="Enter Official Email">
+                    </div>
+                </div>
+               <button class="btn-save-settings" onclick="saveVCProfile()">Save Profile</button>
+            </div>
+
+            <div id="set-security" class="tab-content">
+                <div class="panel-header">
+                    <h2>Password & Security</h2>
+                </div>
+                <div class="settings-form-grid">
+                    <div class="input-group">
+                        <label>Current Password</label>
+    <!-- Is par id="current-password" laga dein -->
+    <input type="password" id="current-password" placeholder="••••••••">
+                    </div>
+                    <div class="input-group">
+                        <label>New Password</label>
+    <!-- Is par id="new-password" laga dein -->
+    <input type="password" id="new-password" placeholder="Enter New Password">
+                    </div>
+                </div>
+                <button class="btn-save-settings" onclick="updateVCPassword()">Update Password</button>
+            </div>
+
+
+
+            <div id="set-rules" class="tab-content">
+    <div class="panel-header">
+        <h2>Escalation Rules</h2>
+        <p>Define automatic triggers for unaddressed complaints.</p>
+    </div>
+    <div class="settings-form-grid">
+        <div class="input-group">
+            <label>Auto-Escalate to VC after (Days)</label>
+            <input type="number" id="esc-days" value="3" min="1">
+        </div>
+        <div class="input-group">
+            <label>Priority Threshold for Alerts</label>
+            <select id="priority-threshold" class="modern-select">
+                <option value="high">High & Critical Only</option>
+                <option value="medium">Medium and Above</option>
+                <option value="all">All Complaints</option>
+            </select>
+        </div>
+    </div>
+    <button class="btn-save-settings" onclick="saveEscalationRules()">Save Rules</button>
+</div>
+<!-- 
+<div id="set-mapping" class="tab-content">
+    <div class="panel-header">
+        <h2>Department Mapping</h2>
+        <p>Map database categories to official University Departments.</p>
+    </div>
+    <div class="mapping-table-wrapper">
+        <table class="mapping-table">
+            <thead>
+                <tr>
+                    <th>Category (Database)</th>
+                    <th>Official Department Name</th>
+                    <th>HOD Email</th>
+                </tr>
+            </thead>
+            <tbody id="mapping-tbody">
+                <tr>
+                    <td><span class="badge-db">Academic</span></td>
+                    <td><input type="text" class="map-input" value="Computer Science"></td>
+                    <td><input type="email" class="map-input" value="hod.cs@uaf.edu.pk"></td>
+                </tr>
+                <tr>
+                    <td><span class="badge-db">Hostel</span></td>
+                    <td><input type="text" class="map-input" value="Biochemistry"></td>
+                    <td><input type="email" class="map-input" value="warden@uaf.edu.pk"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn-save-settings" onclick="saveDeptMapping()">Update Mapping</button>
+</div> -->
+
+        </main>
+    </div>
+            </section>
+
+        </main>
+    </div>
+
+    <button class="scroll-top" id="scrollTopBtn">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- LOGOUT MODAL -->
+    <div id="logoutModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <h2>Are you sure?</h2>
+            <p>Do you really want to logout from the Vice Chancellor Portal?</p>
+            <div class="modal-buttons">
+                <button id="confirmLogout" class="btn-confirm">Yes, Logout</button>
+                <button id="cancelLogout" class="btn-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const logoutBtn = document.querySelector('.nav-logout');
+        const modal = document.getElementById('logoutModal');
+        const confirmBtn = document.getElementById('confirmLogout');
+        const cancelBtn = document.getElementById('cancelLogout');
+
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'flex';
+        });
+        cancelBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        confirmBtn.addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
+        window.onclick = function (event) {
+            if (event.target == modal) modal.style.display = "none";
+        }
+    </script>
+
+    <script>
+        const scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            scrollBtn.classList.toggle('visible', window.scrollY > 200);
+        });
+        scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    </script>
+
+</body>
+</html>
